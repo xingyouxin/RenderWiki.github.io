@@ -2,7 +2,7 @@
 
 <br>
 
-![Logo](D:\Documents\RenderWiki\RenderWiki.github.io\library\ImageResources\Logo.png)
+![Logo](.\ImageResources\Logo.png)
 
 # 使用方法
 
