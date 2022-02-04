@@ -20,10 +20,12 @@
 
 ## 注意事项
 
-1. 图片统一存放到*\RenderWiki.github.io\library\ImageResources\目录下，并在.md文件内设置好路径，例如：https://renderwiki.github.io/library/ImageResources/Logo.png
-2. 公式采用markdown语法编辑
-3. 为您的图片指定好编号和并备注名称，例如：图1.1 xxx
-4. 备注好参考文献
-5. 每个文件夹 **id-名称** 来命名，每个文件使用 **id-名称.md** 来命名
+1. 避免出现**本文**，**我们**等词语
+2. 图片统一存放到*\RenderWiki.github.io\library\ImageResources\目录下，并在.md文件内设置好路径，例如：https://renderwiki.github.io/library/ImageResources/Logo.png
+3. 公式采用markdown语法编辑
+4. 为您的图片指定好编号和并备注名称，例如：图1.1 xxx
+5. 备注好参考文献
+6. 每个文件夹 **id-名称** 来命名，每个文件使用 **id-名称.md** 来命名
    id 不可删除，删除后将无法正常工作
+
 
