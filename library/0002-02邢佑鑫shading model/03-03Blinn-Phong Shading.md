@@ -12,7 +12,7 @@ Blinn-Phong着色的基本思路是在视线向量$v$和光线向量$l$与法线
 
 半向量$h$（平分$v$和$l$之间夹角的向量）与表面法线可以被用来比较判断视线向量$v$和光线向量$l$与法线接近镜面对称的程度，如图1.1。
 
-![Blinn-Phong着色示意图](https://renderwiki.github.io/library/ImageResources/shading model/Blinn-Phong着色示意图.png)
+![Blinn-Phong着色示意图](https://renderwiki.github.io/ImageResources/shading model/Blinn-Phong着色示意图.png)
 
 <center/>图1.1 Blinn-Phong着色示意图<center>
 
@@ -33,9 +33,9 @@ Blinn-Phong着色的基本思路是在视线向量$v$和光线向量$l$与法线
 
 综上所述，Blinn-Phong着色模型如下所示：
 
-$$\pmb{h}=\frac{(\pmb{v+l})}{||\pmb{v+l}||}  \tag{1}$$
+​                                   $$\pmb{h}=\frac{(\pmb{v+l})}{||\pmb{v+l}||}  \tag{1}$$
 
-$$L=k_dImax(0, \pmb{n·l})+k_sImax(0, \pmb{n·h})^p  \tag{2}$$
+​                                      $$L=k_dImax(0, \pmb{n·l})+k_sImax(0, \pmb{n·h})^p  \tag{2}$$
 
 其中$k_s$是表面的镜面系数或镜面反射颜色。
 

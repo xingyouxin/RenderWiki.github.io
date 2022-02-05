@@ -2,7 +2,7 @@
 
 <br>
 
-![Logo](https://renderwiki.github.io/library/ImageResources/Logo.png)
+![Logo](https://renderwiki.github.io/ImageResources/Logo.png)
 
 # 使用方法
 

@@ -24,7 +24,7 @@ $$c_c=(0.8,\ 0.6,\ 0.6). \tag{4}$$
 
 图xxx展示了传统的Phong光照着色和这种类型的艺术着色之间的比较。
 
-![传统的Phong光照着色和这种类型的艺术着色之间的比较](https://renderwiki.github.io/library/ImageResources/shading model/传统的Phong光照着色和这种类型的艺术着色之间的比较.png)
+![传统的Phong光照着色和这种类型的艺术着色之间的比较](https://renderwiki.github.io/ImageResources/shading model/传统的Phong光照着色和这种类型的艺术着色之间的比较.png)
 
 图xxx 左：Phong光照模型的效果；中：冷色到暖色的艺术着色效果，未绘制轮廓线；右：冷色到暖色的艺术着色效果，绘制轮廓线。*Image courtesy Amy Gooch.*
 

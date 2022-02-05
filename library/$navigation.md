@@ -9,11 +9,12 @@
 - [05清华给出的例子](?file=0001-01学习markdown及例子/05-05清华给出的例子 "05清华给出的例子")
 
 ##### 02邢佑鑫shading model
-- [01Lambertian Shading](?file=0002-02邢佑鑫shading model/01-01Lambertian Shading "01Lambertian Shading")
-- [02Blinn-Phong Shading](?file=0002-02邢佑鑫shading model/02-02Blinn-Phong Shading "02Blinn-Phong Shading")
-- [03Ambient Shading](?file=0002-02邢佑鑫shading model/03-03Ambient Shading "03Ambient Shading")
-- [04轮廓线绘制](?file=0002-02邢佑鑫shading model/04-04轮廓线绘制 "04轮廓线绘制")
-- [05Cool-to-Warm Shading](?file=0002-02邢佑鑫shading model/06-05Cool-to-Warm Shading "05Cool-to-Warm Shading")
+- [01Shading Model](?file=0002-02邢佑鑫shading model/01-01Shading Model "01Shading Model")
+- [02Lambertian Shading](?file=0002-02邢佑鑫shading model/02-02Lambertian Shading "02Lambertian Shading")
+- [03Blinn-Phong Shading](?file=0002-02邢佑鑫shading model/03-03Blinn-Phong Shading "03Blinn-Phong Shading")
+- [04Ambient Shading](?file=0002-02邢佑鑫shading model/04-04Ambient Shading "04Ambient Shading")
+- [05轮廓线绘制](?file=0002-02邢佑鑫shading model/05-05轮廓线绘制 "05轮廓线绘制")
+- [06Cool-to-Warm Shading](?file=0002-02邢佑鑫shading model/06-06Cool-to-Warm Shading "06Cool-to-Warm Shading")
 
 ##### 03谭皓文texture coordinate function等
 - [01texture coordinate function](?file=0003-03谭皓文texture coordinate function等/01-01texture coordinate function "01texture coordinate function")
