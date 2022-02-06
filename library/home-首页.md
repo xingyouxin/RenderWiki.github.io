@@ -47,10 +47,10 @@
      - 如：L=k_dImax(0, n·l)
      - ![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, nl))
      - 这种方式的弊端在于1. 没法对向量进行加粗表示；2.无法表示·等特殊符号。
-   - **此外还需要辛苦编写一份**<math>标签修饰的公式，以支持清华网站ac.wiki显示（您可以登录该网站进行测试），如：
-     - <math>L=k_dImax(0, \pmb{n·l})</math>
+   - **此外还需要辛苦编写一份**<math></math>标签修饰的公式，以支持清华网站ac.wiki显示（您可以登录该网站进行测试），如：
+     - `<math>L=k_dImax(0, \pmb{n·l})</math>`
 
-![Logo](https://renderwiki.github.io/ImageResources/清华acwiki网站支持的公式格式.png)
+<div align=center>![Logo](https://renderwiki.github.io/ImageResources/清华acwiki网站支持的公式格式.png=800x430)</div>
 
 2. **添加图片并使其居中**
    - `<div align=center>![Lambertian着色示意图](https://renderwiki.github.io/ImageResources/shading model/Lambertian着色示意图.png)</div>`
