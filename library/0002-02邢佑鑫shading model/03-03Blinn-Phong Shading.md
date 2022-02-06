@@ -12,9 +12,9 @@ Blinn-Phong着色的基本思路是在视线向量$v$和光线向量$l$与法线
 
 半向量$h$（平分$v$和$l$之间夹角的向量）与表面法线可以被用来比较判断视线向量$v$和光线向量$l$与法线接近镜面对称的程度，如图1.1。
 
-![Blinn-Phong着色示意图](https://renderwiki.github.io/ImageResources/shading model/Blinn-Phong着色示意图.png)
+<div align=center>![Blinn-Phong着色示意图](https://renderwiki.github.io/ImageResources/shading model/Blinn-Phong着色示意图.png)</div>
 
-<center/>图1.1 Blinn-Phong着色示意图<center>
+<center>图1.1 Blinn-Phong着色示意图</center>
 
 如果半向量接近表面法线，镜面反射部分应该变得非常亮；如果半向量远离法线，则镜面反射部分会变暗。通过计算$h$和$n$之间的点积来对其进行评估。由于两个向量都是单位向量，所以当两个向量相等时，$n·h$将达到最大值1。对点乘结果取$p$次幂（$p$大于1）来确保这一结果更快衰减。该幂指数或者说Phong指数用于控制表面的光泽程度。
 

@@ -1,4 +1,7 @@
 {
     "name": "测试文库",
-    "ver": "v1.0"
+    "ver": "v1.0",
+    "imports": [
+        "//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      ]
 }
