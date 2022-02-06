@@ -6,10 +6,10 @@ Shading Model不止一种，主要用于处理光线反射的过程，保证物�
 
 在光线反射过程中，重要的变量有：
 
-- 光线方向$l$，它是指向光源的单位矢量；
-- 视线方向$v$，它是指向眼睛或者相机的单位矢量；
-- 表面法线$n$，它是在发生反射的点处，垂直于表面的单位矢量；
-- 以及颜色$color$、光泽$shininess$等其他特定于模型的属性。
+- 光线方向![](http://latex.codecogs.com/svg.latex?l)，它是指向光源的单位矢量；
+- 视线方向![](http://latex.codecogs.com/svg.latex?v)，它是指向眼睛或者相机的单位矢量；
+- 表面法线![](http://latex.codecogs.com/svg.latex?n)，它是在发生反射的点处，垂直于表面的单位矢量；
+- 以及颜色![](http://latex.codecogs.com/svg.latex?color)、光泽![](http://latex.codecogs.com/svg.latex?shininess)等其他特定于模型的属性。
 
 
 

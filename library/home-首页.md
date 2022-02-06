@@ -41,16 +41,18 @@
 
 ### 常见markdown语法
 
-1. 公式
-   - 行内公式`$L=k_dImax(0, \pmb{n·l}) \tag{1}$`
-     - 效果预览：$L=k_dImax(0, \pmb{n·l}) $
-   - 行间公式`$$L=k_dImax(0, \pmb{n·l}) \tag{1}$$`
-     - 效果预览：
+1. **统一公式编写方法**
+   - 由于清华ac.wiki网站上的公式仅支持`<math>公式</math>`方式渲染公式，而github.io托管平台不支持使用$$语法或math标签来渲染公式，所以我们临时采用 codecogs 的外链来进行公式渲染：
+     - 格式：`![](http://latex.codecogs.com/svg.latex?公式代码)`
+     - 如：L=k_dImax(0, n·l)
+     - ![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, nl))
+     - 这种方式的弊端在于1. 没法对向量进行加粗表示；2.无法表示·等特殊符号。
+   - **此外还需要辛苦编写一份**<math>标签修饰的公式，以支持清华网站ac.wiki显示（您可以登录该网站进行测试），如：
+     - <math>L=k_dImax(0, \pmb{n·l})</math>
 
+![Logo](https://renderwiki.github.io/ImageResources/清华acwiki网站支持的公式格式.png)
 
-$$L=k_dImax(0, \pmb{n·l}) \tag{1}$$
-
-2. 添加图片并使其居中
+2. **添加图片并使其居中**
    - `<div align=center>![Lambertian着色示意图](https://renderwiki.github.io/ImageResources/shading model/Lambertian着色示意图.png)</div>`
      - 效果预览：
 
@@ -65,11 +67,8 @@ $$L=k_dImax(0, \pmb{n·l}) \tag{1}$$
 ## 注意事项
 
 1. 避免出现**本文**，**我们**等词语
-2. 图片统一存放到*\RenderWiki.github.io\ImageResources\您的文件夹名称\目录下，并在.md文件内设置好路径，例如：https://renderwiki.github.io/library/ImageResources/shading model/Lambertian着色示意图.png
-3. 为您的图片指定好编号和并备注名称，例如：图1.1 xxx
-4. 对公式采用markdown语法编辑
-5. 备注好参考文献
-6. 每个文件夹**必须按照** **id-名称** 来命名，每个.md文件**必须使用** **id-名称.md** 来命名
-   id 不可删除，删除后将无法正常工作
-
-网站中的公式调用了在线库中的渲染工具，所以有时无法显示完全，请手动刷新页面以显示。
+2. **图片统一存放**到*\RenderWiki.github.io\ImageResources\您的文件夹名称\目录下，并在.md文件内设置好路径，例如：https://renderwiki.github.io/library/ImageResources/shading model/Lambertian着色示意图.png
+3. 为您的图片指定好编号和并备注名称，例如：图1.1 xxx，名称放在图片下方，居中显示
+4. **备注好参考文献**
+5. 每个文件夹**必须按照** **id-名称** 来命名，每个.md文件**必须使用** **id-名称.md** 来命名
+   id 不可删除，**删除后将wiki网站无法正常工作**

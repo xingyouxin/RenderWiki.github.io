@@ -6,27 +6,35 @@
 
 ### 1.1着色方法
 
-可以使用一个指向”暖光源”的方向$l$以及法线$n$与$l$的余弦来调制颜色值，其中暖光常数$k_w$的取值在$[0,\ 1]$之间：
+可以使用一个指向”暖光源”的方向![](http://latex.codecogs.com/svg.latex?l)以及法线![](http://latex.codecogs.com/svg.latex?n)与![](http://latex.codecogs.com/svg.latex?l)的余弦来调制颜色值，其中暖光常数![](http://latex.codecogs.com/svg.latex?k_w)的取值在![](http://latex.codecogs.com/svg.latex?[0,1])之间：
 
-$k_w=\frac{1+\pmb{n·l}}{2}. \tag{1}$
+![](http://latex.codecogs.com/svg.latex?k_w=(1+nl)/2)
 
-颜色$c$通过冷色$c_b$和暖色$c_w$之间的线性混合得到：
+<math>k_w=\frac{1+\pmb{n·l}}{2}. \tag{1}</math>
 
-$c=k_wc_w+(1-k_w)c_b. \tag{2}$
+颜色![](http://latex.codecogs.com/svg.latex?c)通过冷色![](http://latex.codecogs.com/svg.latex?c_b)和暖色![](http://latex.codecogs.com/svg.latex?c_w)之间的线性混合得到：
+
+![](http://latex.codecogs.com/svg.latex?c=k_wc_w+(1-k_w)c_b)
+
+<math>c=k_wc_w+(1-k_w)c_b. \tag{2}</math>
 
 有许多组可能的冷色$c_b$和暖色$c_w$搭配来产生不同的外观效果。下面给出一个例子：
 
-$$c_c=(0.4,\ 0.4,\ 0.7), \tag{3}$$
+![](http://latex.codecogs.com/svg.latex?c_c=(0.4,\ 0.4,\ 0.7))
 
-$$c_c=(0.8,\ 0.6,\ 0.6). \tag{4}$$
+![](http://latex.codecogs.com/svg.latex?c_c=(0.8,\ 0.6,\ 0.6))
+
+<math>c_c=(0.4,\ 0.4,\ 0.7), \tag{3}</math>
+
+<math>c_c=(0.8,\ 0.6,\ 0.6). \tag{4}</math>
 
 ### 1.2效果展示
 
-图xxx展示了传统的Phong光照着色和这种类型的艺术着色之间的比较。
+图1.2展示了传统的Phong光照着色和这种类型的艺术着色之间的比较。
 
 <div align=center>![传统的Phong光照着色和这种类型的艺术着色之间的比较](https://renderwiki.github.io/ImageResources/shading model/传统的Phong光照着色和这种类型的艺术着色之间的比较.png)</div>
 
-<center>图xxx 左：Phong光照模型的效果；中：冷色到暖色的艺术着色效果，未绘制轮廓线；右：冷色到暖色的艺术着色效果，绘制轮廓线。*Image courtesy Amy Gooch.*</center>
+<center>图1.2 左：Phong光照模型的效果；中：冷色到暖色的艺术着色效果，未绘制轮廓线；右：冷色到暖色的艺术着色效果，绘制轮廓线。*Image courtesy Amy Gooch.*</center>
 
 
 
