@@ -18,7 +18,7 @@
 
 ### 1.3 RGSS
 
-研究者发现人眼对于近似水平和近似竖直方向的锯齿现象较为敏感<sup>[1](#f1)</sup>，而正常**SSAA**采用**OGSS**(**Ordered Grid Supersampling**)如**图1**所示的采样模式。考虑到接近45°的直线锯齿现象最严重，因此提出了**RGSS**(**Rotated Grid Supersampling**)如**图2**所示的采样模式，该采样模式采用旋转后的采样点，更适合捕获水平和竖直边缘。
+研究者发现人眼对于近似水平和近似竖直方向的锯齿现象较为敏感<sup>[[1]](#f1)</sup>，而正常**SSAA**采用**OGSS**(**Ordered Grid Supersampling**)如**图1**所示的采样模式。考虑到接近45°的直线锯齿现象最严重，因此提出了**RGSS**(**Rotated Grid Supersampling**)如**图2**所示的采样模式，该采样模式采用旋转后的采样点，更适合捕获水平和竖直边缘。
 
 <div align=center>![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/RGSS原理示意图.png)</div>
 
@@ -34,7 +34,7 @@
 
 ### 1.5 CSAA和EQAA
 
-**Custom Filter AntiAliasing**简称**CSAA**<sup>[2](#f2)</sup>是**NVIDIA**对于**MSAA**的改进，**Enhanced Quality AntiAliasing**简称**EQAA**<sup>[3](#f3)</sup>是**AMD**对于**MSAA**的改进，两者原理较为相似，都是对**MSAA**的数据存储和覆盖方法进一步解耦。例如**图4**中，**EQAA**不再直接向每个子像素样本中存储对应颜色以及深度缓存(模板缓存)值，而是另外设置一张表格存储最高k个覆盖率的颜色以及深度缓存(模板缓存)值，每个子像素都过映射关系访问或更新相应的值。
+**Custom Filter AntiAliasing**简称**CSAA**<sup>[[2]](#f2)</sup>是**NVIDIA**对于**MSAA**的改进，**Enhanced Quality AntiAliasing**简称**EQAA**<sup>[[3]](#f3)</sup>是**AMD**对于**MSAA**的改进，两者原理较为相似，都是对**MSAA**的数据存储和覆盖方法进一步解耦。例如**图4**中，**EQAA**不再直接向每个子像素样本中存储对应颜色以及深度缓存(模板缓存)值，而是另外设置一张表格存储最高k个覆盖率的颜色以及深度缓存(模板缓存)值，每个子像素都过映射关系访问或更新相应的值。
 
 <div align=center>![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/EQAA原理示意图.png)</div>
 
@@ -42,7 +42,7 @@
 
 ### 1.6 CFAA
 
-**Custom Filter AntiAliasing**简称**CFAA**<sup>[4](#f4)</sup>，该方法起源于**AMD-ATI**的**R600**家庭。**CFAA**支持编程自定义采样模式，与**MSAA**的每个像素都执行一样采样模式不同。**CFAA**通过可编程的超采样模式来加入检测走样的相关程序，使得走样严重的地方采用更多的样本数，其他地方采用更少的样本，从而以较少的性能牺牲换取更平滑的效果，降低显卡资源的占用。
+**Custom Filter AntiAliasing**简称**CFAA**<sup>[[4]](#f4)</sup>，该方法起源于**AMD-ATI**的**R600**家庭。**CFAA**支持编程自定义采样模式，与**MSAA**的每个像素都执行一样采样模式不同。**CFAA**通过可编程的超采样模式来加入检测走样的相关程序，使得走样严重的地方采用更多的样本数，其他地方采用更少的样本，从而以较少的性能牺牲换取更平滑的效果，降低显卡资源的占用。
 
 ## 2. DLSS
 
@@ -57,8 +57,8 @@ __DLSS__ 利用 NVIDIA 超级计算机来训练和改进其 AI 模型。更新�
 __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1。  
 **DLSS 2.0**可以通过仅渲染1/4到一半的像素就可以提供与原始分辨率相当的图像质量。并使用非特定的游戏内容进行训练，提供能在多个游戏工作的通用网络，能够更快集成到更多游戏中。  
 **DLSS 2.0**提供了3种图像质量模式：**Quality**，**Balanced**，**Performance**。**DLSS 2.1** 新增 **Ultra Performance** 模式。不同模式可控制游戏的内部渲染分辨率，Quality模式可实现高达4倍的超分辨率（即1080p→4K）。  
-<div align=center>![游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png)</div>
-<center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[5](#s1)</sup></center>  
+<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png" style="zoom:30%" alt="游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比" align=center /></img></div>  
+<center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[[5]](#s1)</sup></center>  
 
 
 ### 2.3 基本技术实现
@@ -66,28 +66,26 @@ __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1
 1. 由游戏引擎渲染的低分辨率、带锯齿的图像；
 2. 由游戏引擎生成的低分辨率、来自相同图像的运动矢量。  
 
-运动矢量告诉我们场景中的对象在帧与帧之间的移动方向。我们可以将这些运动矢量应用于先前高分辨率的输出帧，以估计下一帧图像。我们将这一过程称为“时域反馈”，因为它使用历史来告知未来。
-<div align=center>![NVIDIA DLSS 2.0 架构](https://renderwiki.github.io/ImageResources/Super sampling/NVIDIA DLSS 2.0 架构.png)</div>
-<center>图2.3 NVIDIA DLSS 2.0 架构<sup>[5](#s1)</sup></center>  
+运动矢量告诉我们场景中的对象在帧与帧之间的移动方向。我们可以将这些运动矢量应用于先前高分辨率的输出帧，以估计下一帧图像。我们将这一过程称为“时域反馈”，因为它使用历史来告知未来。  
+<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/NVIDIA DLSS 2.0 架构.png" style="zoom:20%" alt="NVIDIA DLSS 2.0 架构" align=center /></img></div>  
+<center>图2.3 NVIDIA DLSS 2.0 架构<sup>[[5]](#s1)</sup></center>  
 
-**DLSS 2.0**使用的 AI 神经网络叫做**卷积自动编码器（convolutional autoencoder）**<sup>[5](#s1)</sup>，采用低分辨率的当前帧和高分辨率的上一帧，逐个像素地确定如何生成更高质量的当前帧。  
+**DLSS 2.0**使用的 AI 神经网络叫做**卷积自动编码器（convolutional autoencoder）**<sup>[[5]](#s1)</sup>，采用低分辨率的当前帧和高分辨率的上一帧，逐个像素地确定如何生成更高质量的当前帧。  
 在训练过程中，将输出图像与离线渲染生成的超高质量16K参考图像进行比较，并将差异传达回网络，以便它可以继续学习和改进其结果。这个过程在超级计算机上重复数万次，直到网络能够可靠地输出高质量、高分辨率的图像。  
 一旦网络训练完成，NGX 就会通过 Nvidia 显卡的游戏就绪驱动程序（Game Ready Drivers）和 OTA updates 将 AI 模型传送到用户的 GeForce RTX PC上。图灵的 Tensor Cores 提供高达110 teraflops的专用 AI 算力，使得**DLSS**网络可以与大型的3D游戏同时实时运行。
 
 ### 2.4 支持DLSS的游戏与应用
-目前已有超过150个游戏和应用程序支持**DLSS**，例如支持的游戏有《赛博朋克2077》（Cyberpunk 2077）、《堡垒之夜》（Fortnite）、《战地2042》（Battlefield 2042）、《死亡搁浅》（Death Stranding）、《永劫无间》等等<sup>[6](#s2)</sup>；支持的应用程序有Autodesk VRED、Dabanjia BIM、Dimension 5 Techs D5 Render、Enscape等<sup>[7](#s3)</sup>。  
-以游戏Deliver Us The Moon为例，通过支持**DLSS 2.0**，游戏性能可以提升**60%**。
-<div align=center>![游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式性能对比.png)</div>
+目前已有超过150个游戏和应用程序支持**DLSS**，例如支持的游戏有《赛博朋克2077》（Cyberpunk 2077）、《堡垒之夜》（Fortnite）、《战地2042》（Battlefield 2042）、《死亡搁浅》（Death Stranding）、《永劫无间》等等<sup>[[6]](#s2)</sup>；支持的应用程序有Autodesk VRED、Dabanjia BIM、Dimension 5 Techs D5 Render、Enscape等<sup>[[7]](#s3)</sup>。  
+以游戏Deliver Us The Moon为例，通过支持**DLSS 2.0**，游戏性能可以提升**60%**。  
+<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式性能对比.png" style="zoom:70%" alt="游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比" align=center /></img></div>  
+<center>图2.4.1 游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比<sup>[[5]](#s5)</sup></center>  
 
-<center>图2.4.1 游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比<sup>[5](#s5)</sup></center>  
+此外，**DLSS 2.0**能够提供更好的图像质量和更出色的时间稳定性，并能够以更高的清晰度显示更多细节。  
+<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图1.png" style="zoom:70%" alt="游戏Deliver Us the Moon –DLSS 2.0 画面对比图1" align=center /></img></div>  
 
-此外，**DLSS 2.0**能够提供更好的图像质量和更出色的时间稳定性，并能够以更高的清晰度显示更多细节。
+<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图2.png" style="zoom:70%" alt="游戏Deliver Us the Moon –DLSS 2.0 画面对比图1" align=center /></img></div>
 
-<div align=center>![游戏Deliver Us the Moon –DLSS 2.0 画面对比图1](https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图1.png)</div>  
-
-<div align=center>![游戏Deliver Us the Moon –DLSS 2.0 画面对比图2](https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图2.png)</div>
-
-<center>图2.4.2 游戏Deliver Us the Moon –DLSS 2.0 画面对比<sup>[5](#s1)</sup></center>  
+<center>图2.4.2 游戏Deliver Us the Moon –DLSS 2.0 画面对比<sup>[[5]](#s1)</sup></center>  
 
 
 参考文献：
