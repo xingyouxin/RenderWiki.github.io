@@ -57,8 +57,8 @@ __DLSS__ 利用 NVIDIA 超级计算机来训练和改进其 AI 模型。更新�
 __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1。  
 **DLSS 2.0**可以通过仅渲染1/4到一半的像素就可以提供与原始分辨率相当的图像质量。并使用非特定的游戏内容进行训练，提供能在多个游戏工作的通用网络，能够更快集成到更多游戏中。  
 **DLSS 2.0**提供了3种图像质量模式：**Quality**，**Balanced**，**Performance**。**DLSS 2.1** 新增 **Ultra Performance** 模式。不同模式可控制游戏的内部渲染分辨率，Quality模式可实现高达4倍的超分辨率（即1080p→4K）。  
-<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png" width = "60%" alt="游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比" align=center /></img></div>  
-<center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[[5]](#s1)</sup></center>  
+<div align="center">![游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png)</div>  
+<center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[[5]](#s1)</sup></center>
 
 ### 2.3 基本技术实现
 **DLSS**深度神经网络在 NVIDIA DGX 驱动的超级计算机上进行训练。**DLSS 2.0**在 AI 网络中有两个主要输入：
@@ -66,23 +66,23 @@ __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1
 2. 由游戏引擎生成的低分辨率、来自相同图像的运动矢量。  
 
 运动矢量告诉我们场景中的对象在帧与帧之间的移动方向。我们可以将这些运动矢量应用于先前高分辨率的输出帧，以估计下一帧图像。我们将这一过程称为“时域反馈”，因为它使用历史来告知未来。  
-<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/NVIDIA DLSS 2.0 架构.png" width = "70%" alt="NVIDIA DLSS 2.0 架构" align=center /></img></div>  
+<div align="center">![NVIDIA DLSS 2.0 架构.png](https://renderwiki.github.io/ImageResources/Super sampling/NVIDIA DLSS 2.0 架构.png)</div>  
 <center>图2.3 NVIDIA DLSS 2.0 架构<sup>[[5]](#s1)</sup></center>  
 
 **DLSS 2.0**使用的 AI 神经网络叫做**卷积自动编码器（convolutional autoencoder）**<sup>[[5]](#s1)</sup>，采用低分辨率的当前帧和高分辨率的上一帧，逐个像素地确定如何生成更高质量的当前帧。  
 在训练过程中，将输出图像与离线渲染生成的超高质量16K参考图像进行比较，并将差异传达回网络，以便它可以继续学习和改进其结果。这个过程在超级计算机上重复数万次，直到网络能够可靠地输出高质量、高分辨率的图像。  
-一旦网络训练完成，NGX 就会通过 Nvidia 显卡的游戏就绪驱动程序（Game Ready Drivers）和 OTA updates 将 AI 模型传送到用户的 GeForce RTX PC上。图灵的 Tensor Cores 提供高达110 teraflops的专用 AI 算力，使得**DLSS**网络可以与大型的3D游戏同时实时运行。  
+一旦网络训练完成，NGX 就会通过 Nvidia 显卡的游戏就绪驱动程序（Game Ready Drivers）和 OTA updates 将 AI 模型传送到用户的 GeForce RTX PC上。图灵的 Tensor Cores 提供高达110 teraflops的专用 AI 算力，使得**DLSS**网络可以与大型的3D游戏同时实时运行。
 
 ### 2.4 支持DLSS的游戏与应用
 目前已有超过150个游戏和应用程序支持**DLSS**，例如支持的游戏有《赛博朋克2077》（Cyberpunk 2077）、《堡垒之夜》（Fortnite）、《战地2042》（Battlefield 2042）、《死亡搁浅》（Death Stranding）、《永劫无间》等等<sup>[[6]](#s2)</sup>；支持的应用程序有Autodesk VRED、Dabanjia BIM、Dimension 5 Techs D5 Render、Enscape等<sup>[[7]](#s3)</sup>。  
 以游戏Deliver Us The Moon为例，通过支持**DLSS 2.0**，游戏性能可以提升**60%**。  
-<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式性能对比.png" width = "50%" alt="游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比" align=center /></img></div>  
+<div align="center">![DLSS 2.0 Quality模式性能对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式性能对比.png)</div>  
 <center>图2.4.1 游戏Deliver Us the Moon – DLSS 2.0 Quality模式性能对比<sup>[[5]](#s5)</sup></center>  
 
 此外，**DLSS 2.0**能够提供更好的图像质量和更出色的时间稳定性，并能够以更高的清晰度显示更多细节。  
-<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图1.png" width = "50%" alt="游戏Deliver Us the Moon –DLSS 2.0 画面对比图1" align=center /></img></div>  
+<div align="center">![游戏Deliver Us the Moon –DLSS 2.0 画面对比图1](https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图1.png)</div>  
 
-<div align="center"><img src="https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图2.png" width = "50%" alt="游戏Deliver Us the Moon –DLSS 2.0 画面对比图1" align=center /></img></div>
+<div align="center">![游戏Deliver Us the Moon –DLSS 2.0 画面对比图2](https://renderwiki.github.io/ImageResources/Super sampling/游戏Deliver Us the Moon –DLSS 2.0 画面对比图2.png)</div>
 
 <center>图2.4.2 游戏Deliver Us the Moon –DLSS 2.0 画面对比<sup>[[5]](#s1)</sup></center>  
 
