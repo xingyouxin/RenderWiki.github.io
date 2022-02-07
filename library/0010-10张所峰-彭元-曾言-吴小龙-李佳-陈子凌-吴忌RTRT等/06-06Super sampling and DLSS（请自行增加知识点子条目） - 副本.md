@@ -12,7 +12,7 @@
 
 **Supersampling Antialiasing**简称**SSAA**，又被称为**FSAA**(**Full-Scene Antialiasing**)。它是一种概念上最简单的反走样算法。通常先渲染一幅高分辨率下的场景，然后对高分辨下渲染结果进行滤波处理得到低分辨率的图像。如**图1**所示，每个像素内采用4个子像素样本，分别进行着色计算再将每个子像素均值滤波得到最终像素颜色。
 
-![alt文本](https://renderwiki.github.io/library/ImageResources/Super sampling/SSAA原理示意图.png)
+![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/SSAA原理示意图.png)
 
 **<center>图1.2 SSAA原理示意图</center>**
 
@@ -20,7 +20,7 @@
 
 研究者发现人眼对于近似水平和近似竖直方向的锯齿现象较为敏感<sup>[1](#f1)</sup>，而正常**SSAA**采用**OGSS**(**Ordered Grid Supersampling**)如**图1**所示的采样模式。考虑到接近45°的直线锯齿现象最严重，因此提出了**RGSS**(**Rotated Grid Supersampling**)如**图2**所示的采样模式，该采样模式采用旋转后的采样点，更适合捕获水平和竖直边缘。
 
-![alt文本](https://renderwiki.github.io/library/ImageResources/Super sampling/RGSS原理示意图.png)
+![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/RGSS原理示意图.png)
 
 **<center>图1.3 RGSS原理示意图</center>**
 
@@ -28,7 +28,7 @@
 
 **Multisampling Antialiasing**简称**MSAA**，是一种为了减轻**SSAA**带来成倍性能开销的反走样算法。不同于**SSAA**对于每一个子像素样本都做一次实际的着色计算，**MSAA**只对深度缓存(**Z-Buffer**)和模板缓存(**Stencil Buffer**)中的数据进行超采样，再根据几何覆盖的结果复用着色结果，从而每次对于一个像素只执行了一次着色计算，大大减少了性能开销。如**图3**所示，每次片段着色器只进行一个采样点的着色计算，根据深度缓存和模板缓存来更新其他子样本点的着色结果。
 
-![alt文本](https://renderwiki.github.io/library/ImageResources/Super sampling/MSAA原理示意图.png)
+![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/MSAA原理示意图.png)
 
 **<center>图1.4 MSAA原理示意图</center>**
 
@@ -36,7 +36,7 @@
 
 **Custom Filter AntiAliasing**简称**CSAA**<sup>[2](#f2)</sup>是**NVIDIA**对于**MSAA**的改进，**Enhanced Quality AntiAliasing**简称**EQAA**<sup>[3](#f3)</sup>是**AMD**对于**MSAA**的改进，两者原理较为相似，都是对**MSAA**的数据存储和覆盖方法进一步解耦。例如**图4**中，**EQAA**不再直接向每个子像素样本中存储对应颜色以及深度缓存(模板缓存)值，而是另外设置一张表格存储最高k个覆盖率的颜色以及深度缓存(模板缓存)值，每个子像素都过映射关系访问或更新相应的值。
 
-![alt文本](https://renderwiki.github.io/library/ImageResources/Super sampling/EQAA原理示意图.png)
+![alt文本](https://renderwiki.github.io/ImageResources/Super sampling/EQAA原理示意图.png)
 
 **<center>图1.5 EQAA原理示意图</center>**
 
