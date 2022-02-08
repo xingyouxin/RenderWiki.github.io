@@ -67,8 +67,17 @@
 ## 注意事项
 
 1. 避免出现**本文**，**我们**等词语
+
 2. **图片统一存放**到*\RenderWiki.github.io\ImageResources\您的文件夹名称\目录下，并在.md文件内设置好路径，例如：https://renderwiki.github.io/library/ImageResources/shading model/Lambertian着色示意图.png
+
 3. 为您的图片指定好编号和并备注名称，例如：图1.1 xxx，名称放在图片下方，居中显示
+
 4. **备注好参考文献**
-5. 每个文件夹**必须按照** **id-名称** 来命名，每个.md文件**必须使用** **id-名称.md** 来命名
+
+5. 【**new！！！**】每个文件夹**必须按照** **id-名称** 来命名，每个.md文件**必须使用** **id-名称.md** 来命名
    id 不可删除，**删除后将wiki网站无法正常工作**
+
+   **同时新增文件时，应保证$navigation.md中添加对应的文件目录，如下**：
+
+   <div align=center>![navigation格式说明](https://renderwiki.github.io/ImageResources/navigation格式说明.png)</div>
+
