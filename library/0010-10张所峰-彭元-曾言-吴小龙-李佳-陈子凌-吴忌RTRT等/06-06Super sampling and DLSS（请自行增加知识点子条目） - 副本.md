@@ -70,6 +70,7 @@ __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1
 **DLSS 2.0**使用的 AI 神经网络叫做**卷积自动编码器（convolutional autoencoder）**<sup>[[5]](#s1)</sup>，采用低分辨率的当前帧和高分辨率的上一帧，逐个像素地确定如何生成更高质量的当前帧。  
 在训练过程中，将输出图像与离线渲染生成的超高质量16K参考图像进行比较，并将差异传达回网络，以便它可以继续学习和改进其结果。这个过程在超级计算机上重复数万次，直到网络能够可靠地输出高质量、高分辨率的图像。  
 一旦网络训练完成，NGX 就会通过 Nvidia 显卡的游戏就绪驱动程序（Game Ready Drivers）和 OTA updates 将 AI 模型传送到用户的 GeForce RTX PC上。图灵的 Tensor Cores 提供高达110 teraflops的专用 AI 算力，使得**DLSS**网络可以与大型的3D游戏同时实时运行。
+
 ### 2.4 支持DLSS的游戏与应用
 目前已有超过150个游戏和应用程序支持**DLSS**，例如支持的游戏有《赛博朋克2077》（Cyberpunk 2077）、《堡垒之夜》（Fortnite）、《战地2042》（Battlefield 2042）、《死亡搁浅》（Death Stranding）、《永劫无间》等等<sup>[[6]](#s2)</sup>；支持的应用程序有Autodesk VRED、Dabanjia BIM、Dimension 5 Techs D5 Render、Enscape等<sup>[[7]](#s3)</sup>。  
 以游戏Deliver Us The Moon为例，通过支持**DLSS 2.0**，游戏性能可以提升**60%**。  
