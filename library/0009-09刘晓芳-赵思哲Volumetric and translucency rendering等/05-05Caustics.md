@@ -1,79 +1,55 @@
 ## 简介
 
-在考虑参与介质的存在时，折射对真实世界的渲染起着重要作用，其发生于光从一种介质射入到另一种介质时。最简单的例子如空气/介质，其中/表示表面。
+当光线遇到透明物体的弯曲表面会形成焦散，许多方法提供了此类现象的近似计算来实现实时渲染。
 
 整体参考自[1]
 
-## 1.折射（Refraction）
+## 1.焦散（Caustics）
 
-### 1.1斯涅尔定律（Snell’s law）
+### 1.1基本概念
 
 #### 1.1.1定义
 
-斯涅尔定律描述了当光通过两种不同的介质之间发射折射时，光是如何改变方向的。其入射光和折射光都处于同一平面，称为“入射平面”，并且与界面法线的夹角满足如下关系：
+焦散是透明物体的弯曲表面使得光线偏离其直线路径的视觉结。光线会从某些区域失焦产生阴影，同时会在其他区域聚焦，使这个区域的光线路径边的更加密集，也更亮。
 
-![](http://latex.codecogs.com/svg.latex?\sin \theta_{i} \cdot n_{1}=\sin \theta_{t} \cdot n_{2})
+一个典型的反射产生的焦散例子如图1所示，可以在咖啡杯内看到心形焦散。折射产生的焦散会更加明显，例如光通过玻璃杯形成的焦散现象。
 
-<div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射示意图.png)</div>
+<div align=center>![](https://renderwiki.github.io/ImageResources/Caustics/真实世界的焦散现象.png)</div>
 
-<center>图1 折射示意图 </center>
+<center>图1 真实世界的焦散现象 </center>
 
-#### 1.1.2适用范围
+### 1.2渲染方法
 
-此定律是几何光学的基本实验定律，它适用于由均匀的各向同性的介质。
+#### 1.2.1图像空间技术
 
-### 1.2Radiance的计算
+Wyman[2，3]提出了一种用于焦散渲染的图像空间技术。首先，它通过使用背景折射技术（background refraction technique）评估光子的位置以及通过透明物体正面和背面折射后的入射方向。其中纹理不是用来存储折射后的辐射度，而是用来存储场景中的交点位置、折射后的入射方向以及由于菲涅尔效应产生的透射率。每个纹理存储一个光子，然后以正确的强度发射回视图空间，有两种可能的方法来实现这一目标：
 
-由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
+- 一种方法在视图空间或者光照空间以四倍频率散射光子，并进行高斯衰减。
+- McGuire和Mara[4]提出了一种更简单的方法，根据透明表面的法线改变透射率。如果垂直于入射表面，则透射率更高，否则，由于Fresnel效应透射率更低。
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{sin_{\theta_{i}}^{2}}{sin_{\theta_{t}}^{2}}L_{i})
+#### 1.2.2水体焦散
 
-应用斯涅尔定律，该公式也可写为：
+光线经由弯曲的水面反射和折射也会出现焦散现象，无论是水面上还是水底，如图2。当光线汇聚时，光线会集中在不透明的表面上，并产生焦散。当在水面下方，汇聚的光路将在水体中变得可见，这就是光子穿过水粒子散射而产生的光轴（light shafts）。
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{n_{2}^{2}}{n_{1}^{2}}L_{i})
+<div align=center>![](https://renderwiki.github.io/ImageResources/Caustics/水中的焦散现象.png)</div>
 
-其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。
+<center>图2 水中的焦散现象(图片来自WebGL水的演示，由Evan Wallace [5]提供) </center>
 
-### 1.3折射向量的计算方法
+为了从水面上生成焦散，可以应用离线生成的焦散动画纹理作为表面的光照贴图。许多游戏使用了这种方法，例如在CryEngine上运行的《孤岛危机3》。一个关卡中的水域是由水体（water volumes）制作的。水体的表面可以使用凹凸贴图纹理动画或物理模拟来实现。在水面上方和下方进行垂直投影时，凹凸贴图产生的法线可以用来从它们的方向映射到radiance贡献以产生焦散。
 
-Bec[2]提出了一种有效的方法来计算折射向量：
-
-![](https://latex.codecogs.com/svg.image?\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l})
-
-其中
-
-![](https://latex.codecogs.com/svg.image?\begin{aligned}
-w &=n(\mathbf{l} \cdot \mathbf{N}) \\
-k &=\sqrt{1+(w-n)(w+n)}
-\end{aligned})
-
-得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。
-
-### 1.4实时渲染方法
-
-#### 1.4.1环境贴图（Environment Map，EM)
-
-渲染折射的一般方法是，从发生折射的位置生成一个立体的环境贴图（EM），当这个物体被渲染时，可以通过正表面计算的折射方向来查询EM。
-
-#### 1.4.2屏幕空间方法（Screen-space Approach）
-
-Sousa[3]提出了一种屏幕空间的方法，它是基于使用当前的缓冲区作为折射图，然后在纹理坐标上添加扰动来模拟折射。
-
-首先，把场景中所有没有发生折射的物体，像往常一样渲染到场景纹理![](https://latex.codecogs.com/svg.image?\mathbf{s})中。这个纹理可以用来确定哪些物体在折射物体后面是可见的，这些物体将在随后的渲染过程中被渲染出来。
-
-其次，将所有的折射物体渲染到![](https://latex.codecogs.com/svg.image?\mathbf{s})的alpha通道（已被清除为1)。如果像素通过了深度测试，即折射物体在该像素中的最前面，那么就在alpha通道的该像素中写入0值。
-
-最后，折射物体被完全渲染。在像素着色器中，![](https://latex.codecogs.com/svg.image?\mathbf{s})根据像素在屏幕上的位置进行扰动采样，其扰动的偏移量来自于如缩放的表面法线的红色和绿色xy分量，从而模拟折射。被扰动的采样的颜色只有其alpha值为0才会被考虑。这样是为了避免使用来自折射物体前面的表面的样本，从而使它们的颜色被采用，就像它们在后面一样。
-
-#### 1.4.3粗糙材质表面的渲染
-
-对于粗糙的折射表面，根据材质粗糙度模糊背景，以模拟由微几何法线分布引起的折射方向上的漫反射是很重要的。在游戏《DOOM》（2016）中，场景首先像往常一样被渲染。然后，它被下采样到一半的分辨率，并进一步降到四个mipmap级别。每个mipmap级别模仿GGX BRDF lobe的高斯模糊度进行下采样。最后在 渲染时，将材质的粗糙度映射到mipmap级别，并在相应级别的mipmap上采样，再将背景合成到表面的后面。表面越是粗糙，背景就越是模糊。
+同样的，动态水面也可以用于水中的焦散渲染。Lanza[6]提出了一个两步法来生成光轴(light shafts)。首先，从光源的角度对光的位置和折射方向进行渲染，并保存到纹理中。然后，从水面开始，沿着视图中的折射方向将线条栅格化。通过累加混合法(additive blending)累积，最后进行后期模糊来模糊结果，以掩盖低数量的线条。
 
 参考文献：
 
 [1] Tomas Akenine-Mller, Eric Haines, and Naty Hoffman. 2018. Real-Time Rendering, Fourth Edition (4th. ed.). A. K. Peters, Ltd., USA.
 
-[2] Bec, Xavier, “Faster Refraction Formula, and Transmission Color Filtering,” Ray Tracing News, vol. 10, no. 1, Jan. 1997.
+[2] Wyman, Chris, “Interactive Refractions and Caustics Using Image-Space Techniques,” in Wolfgang Engel, ed., ShaderX5, Charles River Media, pp. 359–371, 2006.
 
-[3] Sousa, Tiago, “Generic Refraction Simulation,” in Matt Pharr, ed., GPU Gems 2, AddisonWesley, pp. 295–305, 2005.
+[3] Wyman, Chris, “Hierarchical Caustic Maps,” in Proceedings of the 2008 Symposium on Interactive 3D Graphics and Games, ACM, pp. 163–172, Feb. 2008.
+
+[4] McGuire, Morgan, and Michael Mara, “Phenomenological Transparency,” IEEE Transactions of Visualization and Computer Graphics, vol. 23, no.5, pp. 1465–1478, May 2017.
+
+[5] Wallace, Evan, “Rendering Realtime Caustics in WebGL,” Medium blog, Jan. 7, 2016.
+
+[6] Lanza, Stefano, “Animation and Rendering of Underwater God Rays,” in Wolfgang Engel, ed., ShaderX5, Charles River Media, pp. 315–327, 2006.
 
