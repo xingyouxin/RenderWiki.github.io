@@ -20,7 +20,7 @@ AO的顶层想法可以总结为三点：
 
 AO的理论背景可以从渲染方程推导得出。首先，可以对渲染方程进行近似，把它拆成两项：
 
-![](http://latex.codecogs.com/svg.latex?\begin{aligned}L_o(p,\omega_o)%20&=%20\int_{\Omega^+}%20L_i(p,\omega_i)%20f_r(p,\omega_i,\omega_o)%20V(p,\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i%20\\&\approx%20\frac{\int_{\Omega^+}%20V(p,%20\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}{\int_{\Omega^+}%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}%20\cdot%20\int_{\Omega^+}%20L_i(p,\omega_i)%20f_r(p,\omega_i,\omega_o)%20V(p,\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i%20\\&=%20\frac{\int_{\Omega^+}%20V(p,%20\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}{\pi}%20\cdot%20L_i(p%20\cdot%20\frac{\rho}{\pi}%20\cdot%20\pi%20\\&=%20k_A%20\cdot%20L_i(p)%20\cdot%20\rho\end{aligned})
+<div align=center>![](https://renderwiki.github.io/ImageResources/SSAO/渲染方程的近似拆分.svg)</div>
 
 <!-- $$
 \begin{aligned}
