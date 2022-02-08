@@ -4,20 +4,20 @@
 # 1Lambertian Shading
 
 ### 1.1基本概念
-直接朝向光源的表面将会获得最大程度的光线照射；与光线方向相切（或者背朝光源）的表面不会受到任何光照；处于上述两种情况之间的光照强度与表面法线和光线之间夹角θ的余弦成正比，如图1。
+**直接朝向光源的表面**将会获得最大程度的光线照射；与光线方向**相切**（或者背朝光源）的表面不会受到任何光照；处于上述两种情况之间的光照强度**与表面法线和光线之间夹角θ的余弦成正比**，如图1。
 
 <div align=center>![Lambertian着色示意图](https://renderwiki.github.io/ImageResources/shading model/Lambertian着色示意图.png)</div>
 
 <center>图1 Lambertian着色示意图</center>
 
 ### 1.2公式表达
-这就引出了Lambertian shading model：
+这就引出了**Lambertian shading model**：
 
-![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, n\cdotl))
+![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, n \cdot l ) )
 
-其中，![](http://latex.codecogs.com/svg.latex?L)是像素颜色；![](http://latex.codecogs.com/svg.latex?k_d)是漫反射系数（diffuse coefficient），或为物体表面颜色；![](http://latex.codecogs.com/svg.latex?I)是光源的强度（真实世界光源的强度将会随着距离平方下降，这比在简单渲染器中麻烦的多）。
+其中，![](http://latex.codecogs.com/svg.latex?L)是**像素颜色**；![](http://latex.codecogs.com/svg.latex?k_d)是**漫反射系数**（diffuse coefficient），或为**物体表面颜色**；![](http://latex.codecogs.com/svg.latex?I)是**光源的强度**（真实世界光源的强度将会随着距离平方下降，这比在简单渲染器中麻烦的多）。
 
-因为![](http://latex.codecogs.com/svg.latex?n)和![](http://latex.codecogs.com/svg.latex?l)是单位矢量，所以我们可以使用![](http://latex.codecogs.com/svg.latex?n\cdotl)作为![](http://latex.codecogs.com/svg.latex?cos\theta)的简化写法。
+因为![](http://latex.codecogs.com/svg.latex?n)和![](http://latex.codecogs.com/svg.latex?l)是单位矢量，所以我们可以使用![](http://latex.codecogs.com/svg.latex?n \cdot l)作为![](http://latex.codecogs.com/svg.latex?cos\theta)的简化写法。
 
 该方程分别适用于RGB三个颜色通道，因此像素值的红色分量对应红色漫反射分量，红色光源强度以及点积乘积，其它颜色分量也是如此。
 
