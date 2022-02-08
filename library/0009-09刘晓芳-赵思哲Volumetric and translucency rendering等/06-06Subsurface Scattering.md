@@ -1,79 +1,103 @@
 ## 简介
 
-在考虑参与介质的存在时，折射对真实世界的渲染起着重要作用，其发生于光从一种介质射入到另一种介质时。最简单的例子如空气/介质，其中/表示表面。
+次表面散射是在具有高散射系数的固体材质中发现的一种复杂现象，这种材质包括蜡、人的皮肤和牛奶。
 
 整体参考自[1]
 
-## 1.折射（Refraction）
+## 1.次表面散射（Subsurface Scattering）
 
-### 1.1斯涅尔定律（Snell’s law）
+### 1.1基本概念
 
-#### 1.1.1定义
+对于光学深度较高的介质，比如人类皮肤，散射光会从表面接近其最初入射点的位置出射，这种位置上的偏移意味着次表面散射不能用BRDF建模。
 
-斯涅尔定律描述了当光通过两种不同的介质之间发射折射时，光是如何改变方向的。其入射光和折射光都处于同一平面，称为“入射平面”，并且与界面法线的夹角满足如下关系：
+图1显示了光在物体中的散射，这种散射会导致入射的光线形成许多不同的路径。单独模拟每个光子是不切实际的（即使是离线渲染），所以必须通过对可能的路径进行积分或通过近似这样的积分来解决这个问题。
 
-![](http://latex.codecogs.com/svg.latex?\sin \theta_{i} \cdot n_{1}=\sin \theta_{t} \cdot n_{2})
+<div align=center>![](https://renderwiki.github.io/ImageResources/Subsurface Scattering/光在物体中的散射.png)</div>
 
-<div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射示意图.png)</div>
+<center>图1 光在物体中的散射 </center>
 
-<center>图1 折射示意图 </center>
+### 1.2单次散射和多次散射
 
-#### 1.1.2适用范围
+根据一条光路中散射事件的数量，可以分为单次散射（single scattering）和多次散射（multiple scattering）。单次散射指光被散射一次就离开材质，而多次散射则意味着光在射出材质前进行了两次或更多次散射。
 
-此定律是几何光学的基本实验定律，它适用于由均匀的各向同性的介质。
+### 1.3渲染方法
 
-### 1.2Radiance的计算
+#### 1.3.1Wrap Lighting
 
-由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
+Wrap Lighting是实现次表面散射的最简单的方式，其是一种近似面光源的方法，这种方法试图模拟弯曲表面的多次散射效果。对于Lambertian 着色模型表示漫反射的物体, 其引入一个系数让光柔和过渡到暗的地方。为了进一步近似次表面散射，Wrap Lighting根据系数加上一些随材质变化的颜色偏移效果，如图2，这就可以呈现穿过这种材质的光被部分吸收的现象。例如，在渲染皮肤时，可以应用红色偏移(shift)。
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{sin_{\theta_{i}}^{2}}{sin_{\theta_{t}}^{2}}L_{i})
+<div align=center>![](https://renderwiki.github.io/ImageResources/Subsurface Scattering/应用Wrap Lighting的球面.png)</div>
 
-应用斯涅尔定律，该公式也可写为：
+<center>图2 应用Wrap Lighting的球面</center>
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{n_{2}^{2}}{n_{1}^{2}}L_{i})
+#### 1.3.2Normal Blurring
 
-其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。
+Stam[2]指出，多次散射可以被建模为一个漫反射(diffusion)过程。其对出射辐射度有空间模糊效应。这种模糊只适用于漫反射，镜面反射发生在材质表面，不受次表面散射的影响。
 
-### 1.3折射向量的计算方法
+Ma等人[3]根据测量数据，发现模糊程度在可见光谱上有所不同。所以他们提出了一种实时着色技术，为漫反射的RGB三个通道分别使用三张模糊的法线贴图。但对每个通道使用不同的法线贴图会导致颜色渗漏(color bleeding)。由于这些漫反射法线图通常类似于镜面反射图的模糊版本，因此也可以简化为使用单一的法线贴图，同时调整mipmap级别。其代价是失去颜色偏移，因为每个通道的法线都是一样的。
 
-Bec[2]提出了一种有效的方法来计算折射向量：
+#### 1.3.3Pre-Integrated Skin Shading
 
-![](https://latex.codecogs.com/svg.image?\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l})
+Penner[4]结合了Warp Lighting和Normal Blurring的想法，提出了一种预积分的皮肤着色方法。皮肤表面的着色受两个系数的影响, 一个是![](https://latex.codecogs.com/svg.image?\mathbf{n} \cdot \mathbf{l}) 的值，另一个是皮肤表面的曲率![](https://latex.codecogs.com/svg.image?1 / r=\|\partial n / \partial p\|)。曲率越大，皮肤受散射的影响就越大，如鼻子处散射比面部会更加明显)。这样将这两个系数作为输入值, 对散射和透射进行预积分得到一张二维LUT表。然后再加上前一小节所讲的 Normal Blurring操作。
 
-其中
+#### 1.3.4Texture-Space Diffusion
 
-![](https://latex.codecogs.com/svg.image?\begin{aligned}
-w &=n(\mathbf{l} \cdot \mathbf{N}) \\
-k &=\sqrt{1+(w-n)(w+n)}
-\end{aligned})
+模糊漫反射的法线可以模拟次表面散射，但无法模拟软阴影边缘部分。而纹理空间的漫反射可以解决这个问题，其思想是使用模糊（Blur）来模拟多次散射：
 
-得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。
+1. 使用纹理坐标作为光栅化的位置，将表面irradiance(漫反射光照)渲染成一个纹理贴图。
+2. 根据材质属性对得到的纹理贴图进行模糊。不同波长，模糊的程度不同。如，对于皮肤，R通道使用比G或B更宽的滤波器进行滤波，使得阴影边缘变红。
+3. 在渲染时，该纹理贴图被映射到世界空间，根据其真实位置进行着色插值，从而完成漫反射着色。
 
-### 1.4实时渲染方法
+该方法首先被用于离线渲染，但NVIDIA和ATI的研究人员很快就提出了实时GPU实现。d'Eon和Luebke[5]的报告代表了该技术最完整的处理方法之一，包括对多层次表面结构效果的支持。
 
-#### 1.4.1环境贴图（Environment Map，EM)
+#### 1.3.5Screen-Space Diffusion
 
-渲染折射的一般方法是，从发生折射的位置生成一个立体的环境贴图（EM），当这个物体被渲染时，可以通过正表面计算的折射方向来查询EM。
+Jimenez[6]提出一种屏幕空间的方法：
 
-#### 1.4.2屏幕空间方法（Screen-space Approach）
+- 首先，将场景像往常一样渲染，并把需要进行次表面散射的网格（如人脸）记录在模板缓存区（stencil buffer）中。
+- 然后，在存储的radiance上使用双pass屏幕空间过程模拟次表面散射，使用模板测试从而只在包含半透明材质的像素中应用这一过程。通过两次水平和垂直地应用两个一维和双边模糊核，来实现模糊的效果。
 
-Sousa[3]提出了一种屏幕空间的方法，它是基于使用当前的缓冲区作为折射图，然后在纹理坐标上添加扰动来模拟折射。
+为了进一步优化这个过程，线性深度可以被存储在场景纹理的alpha通道中。
 
-首先，把场景中所有没有发生折射的物体，像往常一样渲染到场景纹理![](https://latex.codecogs.com/svg.image?\mathbf{s})中。这个纹理可以用来确定哪些物体在折射物体后面是可见的，这些物体将在随后的渲染过程中被渲染出来。
+实现屏幕空间漫反射时，必须注意只模糊irradiance，而不是漫反射反照度(diffuse albedo)或镜面光照。
 
-其次，将所有的折射物体渲染到![](https://latex.codecogs.com/svg.image?\mathbf{s})的alpha通道（已被清除为1)。如果像素通过了深度测试，即折射物体在该像素中的最前面，那么就在alpha通道的该像素中写入0值。
+一种可行的方法是将irradiance和镜面光照渲染到单独的屏幕空间缓冲区中。 如果使用了延迟着色，那么已经有了漫反射的缓冲区。
 
-最后，折射物体被完全渲染。在像素着色器中，![](https://latex.codecogs.com/svg.image?\mathbf{s})根据像素在屏幕上的位置进行扰动采样，其扰动的偏移量来自于如缩放的表面法线的红色和绿色xy分量，从而模拟折射。被扰动的采样的颜色只有其alpha值为0才会被考虑。这样是为了避免使用来自折射物体前面的表面的样本，从而使它们的颜色被采用，就像它们在后面一样。
+为了减少存储带宽，Gallagher和Mittring[7]建议将irradiance和镜面光照使用棋盘格模式存储在一个缓冲区中。在对irradiance进行模糊处理后，通过将漫反射反照率与模糊的irradiance相乘并与镜面光照相加来合成最终的图像。
 
-#### 1.4.3粗糙材质表面的渲染
+#### 1.3.6Depth-Map Techniques
 
-对于粗糙的折射表面，根据材质粗糙度模糊背景，以模拟由微几何法线分布引起的折射方向上的漫反射是很重要的。在游戏《DOOM》（2016）中，场景首先像往常一样被渲染。然后，它被下采样到一半的分辨率，并进一步降到四个mipmap级别。每个mipmap级别模仿GGX BRDF lobe的高斯模糊度进行下采样。最后在 渲染时，将材质的粗糙度映射到mipmap级别，并在相应级别的mipmap上采样，再将背景合成到表面的后面。表面越是粗糙，背景就越是模糊。
+对于表现出大规模散射的材质来说，必须考虑光照从背面穿过后的透射效果(比如光照在手上的效果)。为了模拟这种效果，需要测量光在材质中传播的距离。而估算这个距离可以使用深度贴图（Depth Maps）技术，此技术非常类似于阴影贴图(Shadow Mapping)，并且可用于实时渲染。
+
+Barr´e-Brisebois和Bouchard[8]提出了一种廉价的对大范围次表面散射的近似方法。首先，他们为每个网格生成一个灰度纹理以存储平均局部厚度，该厚度为1减去从向内的法线![](https://latex.codecogs.com/svg.image?-n)计算的环境遮挡。这个纹理表示为为![](https://latex.codecogs.com/svg.image?t_{ss})，被认为是一个近似的透射率:
+
+![img](file:///C:/Users/lxf11/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)
+
+其中![](https://latex.codecogs.com/svg.image?\mathrm{l})和![](https://latex.codecogs.com/svg.image?\mathrm{v})分别是归一化的光和视图向量，![](https://latex.codecogs.com/svg.image?\mathrm{p})是一个近似相位函数的指数，![](https://latex.codecogs.com/svg.image?\mathrm{c}_{ss})是次表面反照率。然后将这个表达式与光的颜色、强度和距离衰减相乘。
+
+这个模型不是基于物理的，也不是能量守恒的，但是它能够一次就迅速渲染出合理的次表面照明效果，如图3。
+
+<div align=center>![](https://renderwiki.github.io/ImageResources/Subsurface Scattering/图3.png)</div>
+
+<center>图3 左图是为Hebe雕像生成的局部厚度纹理。中间是用它实现的次表面光散射效果。右图是另一个使用相同技术渲染的半透明立方体的场景。(图片由Colin Barr´e-Brisebois和Marc Bouchard提供[8]）/center>
+
+#### 
 
 参考文献：
 
 [1] Tomas Akenine-Mller, Eric Haines, and Naty Hoffman. 2018. Real-Time Rendering, Fourth Edition (4th. ed.). A. K. Peters, Ltd., USA.
 
-[2] Bec, Xavier, “Faster Refraction Formula, and Transmission Color Filtering,” Ray Tracing News, vol. 10, no. 1, Jan. 1997.
+[2] Stam, Jos, “Multiple Scattering as a Diffusion Process,” in Rendering Techniques ’95, Springer, pp. 41–50, June 1995.
 
-[3] Sousa, Tiago, “Generic Refraction Simulation,” in Matt Pharr, ed., GPU Gems 2, AddisonWesley, pp. 295–305, 2005.
+[3] Ma, Wan-Chun, Tim Hawkins, Pieter Peers, Charles-F´elix Chabert, Malte Weiss, and Paul Debevec, “Rapid Acquisition of Specular and Diffuse Normal Maps from Polarized Spherical Gradient Illumination,” in Proceedings of the 18th Eurographics Symposium on Rendering Techniques, Eurographics Association, pp. 183–194, June 2007.
+
+[4] Penner, E., “Pre-Integrated Skin Shading,” SIGGRAPH Advances in Real-Time Rendering in Games course, Aug. 2011.
+
+[5] d’Eon, Eugene, and David Luebke, “Advanced Techniques for Realistic Real-Time Skin Rendering,” in Hubert Nguyen, ed., GPU Gems 3, Addison-Wesley, pp. 293–347, 2007.
+
+[6] Jimenez, Jorge, “Next Generation Character Rendering,” Game Developers Conference, Mar. 2013.
+
+[7] McGuire, Morgan, The Graphics Codex, Edition 2.14, Casual Effects Publishing, 2018.
+
+[8] Barr´e-Brisebois, Colin, and Marc Bouchard, “Approximating Translucency for a Fast, Cheap and Convincing Subsurface Scattering Look,” Game Developers Conference, Feb.–Mar. 2011.
 

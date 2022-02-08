@@ -1,79 +1,72 @@
 ## 简介
 
-在考虑参与介质的存在时，折射对真实世界的渲染起着重要作用，其发生于光从一种介质射入到另一种介质时。最简单的例子如空气/介质，其中/表示表面。
-
 整体参考自[1]
 
-## 1.折射（Refraction）
+## 1.毛发（Hair）和皮毛（Fur）
 
-### 1.1斯涅尔定律（Snell’s law）
+### 1.1定义
 
-#### 1.1.1定义
+毛发和皮毛是生长在哺乳动物的真皮层中的蛋白质丝。毛发一般形容在人体不同部位生长的蛋白质丝，如头发、胡须、眉毛和睫毛等。而其他哺乳动物身上覆盖的，通常称为皮毛。在视觉上看，皮毛可以看作是密集的、长度有限的毛发。它们因其生长部位的不同而具有不同的特性。
 
-斯涅尔定律描述了当光通过两种不同的介质之间发射折射时，光是如何改变方向的。其入射光和折射光都处于同一平面，称为“入射平面”，并且与界面法线的夹角满足如下关系：
+### 1.2基本结构
 
-![](http://latex.codecogs.com/svg.latex?\sin \theta_{i} \cdot n_{1}=\sin \theta_{t} \cdot n_{2})
+<div align=center>![](https://renderwiki.github.io/ImageResources/Hair and Fur/一根毛发的纵向切面.png)</div>
 
-<div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射示意图.png)</div>
+<center>图1 一根毛发的纵向切面 </center>
 
-<center>图1 折射示意图 </center>
+毛发和皮毛的结构基本相同, 由三层组成，如图1所示:
 
-#### 1.1.2适用范围
+- 外面是角质层（cuticle），表示纤维的表面。这个表面是不光滑的，由重叠的鳞片组成，鳞片相对于头发倾斜约![img](file:///C:/Users/lxf11/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)，使即法线向根部（root)方向倾斜。
+- 中间是皮质层（cortex），含有黑色素从而使纤维具有颜色。其中有一种真黑素，可以呈现棕色，![](https://latex.codecogs.com/svg.image?\alpha_{a,e}=(0.419,0.697,1.37))；还有一种伪黑色素，可以呈现红色![](https://latex.codecogs.com/svg.image?\alpha_{a,p}=(0.187,0.4,1.05))。
+- 内部是髓质层（medulla），它很小，在建立人体毛发模型时经常被忽略。但在动物皮毛中，它占据了较大体积，具有更大的意义。
 
-此定律是几何光学的基本实验定律，它适用于由均匀的各向同性的介质。
+### 1.3几何表示
 
-### 1.2Radiance的计算
+一般类似胡须或者静态的短的毛发可以先由艺术家画出头发方向的引导曲线，然后在顶点着色器中，通过挤压四边形形成丝带形状来渲染毛发线条。这是有效的，因为大的四边形可以覆盖更大的面积，因此如头发所需的四边形就越少，从而提高了性能。
 
-由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
+但如果需要更多细节，通常需要成千上万更薄的四边形丝进行渲染。此时，这些四边形最好也使用沿着头发曲线的切线的圆柱体约束朝向视图。
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{sin_{\theta_{i}}^{2}}{sin_{\theta_{t}}^{2}}L_{i})
+### 1.4基于alpha的混合
 
-应用斯涅尔定律，该公式也可写为：
+上述所有元素都可以被渲染为alpha混合（alpha-blended）的几何体，需要保证其渲染顺序以避免产生透明度伪影（transparency artifacts）。
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{n_{2}^{2}}{n_{1}^{2}}L_{i})
+可以使用预先排序的索引缓冲区，将里面的毛发排在前面，外层的毛发排在最后。这对于短头发非常实用，但对于长的相互交错的头发就不适用了。
 
-其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。
+依靠深度测试来解决排序问题，可以使用alpha检测（alpha testing），但会出现高频几何与纹理的走样问题。可以使用MSAA对每个样本进行alpha检测，但要进行额外的采样，以及付出额外的内存带宽。
 
-### 1.3折射向量的计算方法
+此外，渲染毛发时也可以使用与顺序无关的半透明方法。
 
-Bec[2]提出了一种有效的方法来计算折射向量：
+### 1.5毛发
 
-![](https://latex.codecogs.com/svg.image?\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l})
+Marschner等人[2]测量了人类毛发纤维中的光散射，并根据这些观察提出了一个模型，如图1所示。
 
-其中
+ R表示光在角质层的空气与纤维表面的反射。TT表示光射入毛发纤维，然后出射的过程，其中整个路径的事件只包括两个：一次从空气射入毛发纤维发生折射，一次从毛发纤维折射返回空气。TRT表示光从空气射入毛发纤维，之后在纤维另一侧的内部表面发生反射，然后又在纤维的入射表面射出。其中R表示纤维内部的反射。
 
-![](https://latex.codecogs.com/svg.image?\begin{aligned}
-w &=n(\mathbf{l} \cdot \mathbf{N}) \\
-k &=\sqrt{1+(w-n)(w+n)}
-\end{aligned})
+在视觉上，R被认为时头发上无色的镜面反射。当一卷头发从后面被照亮时，TT被认为时一个明亮的高光。而TRT对于渲染真实毛发至关重要，它将导致头发上的闪烁（glints）。
 
-得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。
+由此可以推出该散射模型中更多路径的表示，如TRRT、TRRRT和更长的路径。
 
-### 1.4实时渲染方法
+如果想对毛发渲染进行更深的了解，可以参考Yuksel和Tariq[3]在网上提供的一个全面的实时头发渲染课程。
 
-#### 1.4.1环境贴图（Environment Map，EM)
+### 1.6皮毛
 
-渲染折射的一般方法是，从发生折射的位置生成一个立体的环境贴图（EM），当这个物体被渲染时，可以通过正表面计算的折射方向来查询EM。
+#### 1.6.1Volumetric Textures
 
-#### 1.4.2屏幕空间方法（Screen-space Approach）
+体积纹理贴图是由二维半透明纹理层表示的体积描述。Lengyel等人[4]使用八种纹理来表示表面上的皮毛。
 
-Sousa[3]提出了一种屏幕空间的方法，它是基于使用当前的缓冲区作为折射图，然后在纹理坐标上添加扰动来模拟折射。
+其中，每个纹理都代表了在从表面一定距离通过一组毛发的切片(slice)。该模型被渲染了八次，每次都由顶点着色器程序沿着顶点法线将每个三角形稍微向外移动。从而使得每一个连续的模型都描绘了表皮以上不同的高度。以这种方式创建的嵌套模型被称为shells。这种渲染技术在物体轮廓的边缘会出现问题，因为毛发随着层的展开会逐渐分解成点。
 
-首先，把场景中所有没有发生折射的物体，像往常一样渲染到场景纹理![](https://latex.codecogs.com/svg.image?\mathbf{s})中。这个纹理可以用来确定哪些物体在折射物体后面是可见的，这些物体将在随后的渲染过程中被渲染出来。
+#### 1.6.2基于几何着色器的渲染
 
-其次，将所有的折射物体渲染到![](https://latex.codecogs.com/svg.image?\mathbf{s})的alpha通道（已被清除为1)。如果像素通过了深度测试，即折射物体在该像素中的最前面，那么就在alpha通道的该像素中写入0值。
-
-最后，折射物体被完全渲染。在像素着色器中，![](https://latex.codecogs.com/svg.image?\mathbf{s})根据像素在屏幕上的位置进行扰动采样，其扰动的偏移量来自于如缩放的表面法线的红色和绿色xy分量，从而模拟折射。被扰动的采样的颜色只有其alpha值为0才会被考虑。这样是为了避免使用来自折射物体前面的表面的样本，从而使它们的颜色被采用，就像它们在后面一样。
-
-#### 1.4.3粗糙材质表面的渲染
-
-对于粗糙的折射表面，根据材质粗糙度模糊背景，以模拟由微几何法线分布引起的折射方向上的漫反射是很重要的。在游戏《DOOM》（2016）中，场景首先像往常一样被渲染。然后，它被下采样到一半的分辨率，并进一步降到四个mipmap级别。每个mipmap级别模仿GGX BRDF lobe的高斯模糊度进行下采样。最后在 渲染时，将材质的粗糙度映射到mipmap级别，并在相应级别的mipmap上采样，再将背景合成到表面的后面。表面越是粗糙，背景就越是模糊。
+几何着色器使得用皮毛挤压表面的多段线（polyline）皮毛成为可能，《失落的星球》使用了这种技术。表面渲染时，每个像素的值都被保存:皮毛颜色、长度和角度。 然后在几何着色器处理这幅图像，把每个像素变成半透明的polyline。渲染分两步进行。 在屏幕空间中指向下方的皮毛首先被渲染，以从屏幕底部到顶部的顺序。 这种方式可以从后往前正确地执行混合操作。最后，剩下的皮毛从上到下依次渲染。
 
 参考文献：
 
 [1] Tomas Akenine-Mller, Eric Haines, and Naty Hoffman. 2018. Real-Time Rendering, Fourth Edition (4th. ed.). A. K. Peters, Ltd., USA.
 
-[2] Bec, Xavier, “Faster Refraction Formula, and Transmission Color Filtering,” Ray Tracing News, vol. 10, no. 1, Jan. 1997.
+[2] Marschner, Stephen R., Henrik Wann Jensen, Mike Cammarano, Steve Worley, and Pat Hanrahan, “Light Scattering from Human Hair Fibers,” ACM Transactions on Graphics (SIGGRAPH 2003), vol. 22, no. 3, pp. 780–791, 2000.
 
-[3] Sousa, Tiago, “Generic Refraction Simulation,” in Matt Pharr, ed., GPU Gems 2, AddisonWesley, pp. 295–305, 2005.
+[3] Yuksel, Cem, and Sara Tariq, SIGGRAPHAdvanced Techniques in Real-Time Hair Rendering and Simulation course, July 2010.
+
+[4] Lengyel, Jerome, Emil Praun, Adam Finkelstein, and Hugues Hoppe, “Real-Time Fur over Arbitrary Surfaces,” in Proceedings of the 2001 Symposium on Interactive 3D Graphics, ACM, pp. 227–232, Mar. 2001.
 
