@@ -1,20 +1,28 @@
 ## 简介
-
 基于物理的渲染中，遮蔽阴影项是一个0到1之间的标量，描述了微平面自阴影的属性，表示了具有半矢量法线的微平面中，同时被入射方向和反射方向可见（未被遮挡的）的比例。遮蔽阴影项即是对能顺利完成对光线的入射和出射交互的微平面概率进行建模的函数。
-
-## 1.阴影与遮挡
+## 1.阴影与遮蔽
 ### 1.1定义
 阴影（shadowing）是从光源出发发生的微表面遮挡现象  
-遮挡（masking）是从视点出发发生的微表面遮挡现象  
+遮蔽（masking）是从视点出发发生的微表面遮挡现象  
+![image](https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/shadowing_masking.jpg)  
+图1 左图：光线被微表面从l的方向进行遮挡，右图：光线被微表面从v的方向进行遮挡。在这两种情况下，这些表面点对BRDF没有贡献。（图片来自Akenine-Moller et al, 2009）       
 
-图 左图：光线被微表面从l的方向进行遮挡，右图：光线被微表面从v的方向进行遮挡。在这两种情况下，这些表面点对BRDF没有贡献。（图片来自Naty Hoffman, Recent Advances in Physically Based Shading, SIGGRAPH 2016）  
+## 2.阴影遮蔽项
+阴影遮挡项描述了具有半向量法线的微观面元中，同时被入射方向和反射方向向看见的（或者说没有被阻挡的）的比例。阴影遮挡项的值介于0 和 1 之间。
+### 2.1 阴影遮蔽项引入原因
+为了考虑由于微表面遮阴影与遮挡产生的变暗效果，引入阴影遮挡项。
+![image](https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/importance_of_G.png)  
+（图片来自GAMES 202 实时高质量着色 1） 
+在掠射角处，遮蔽现象最明显。以图2为例，从掠射角处看向F0旁边的白圈里的点,即观察方向与表面法线接近垂直。微表面BRDF计算公式的分子为为F项、D项与G项的乘积，不考虑阴影遮蔽项，即令G(i,o,h)=1，在掠射角处，分子没有非常大的值。入射方向、出射方向与法线角度接近90°，因此法线与入射方向（n,i）法线与出射方向（n,o）的点乘结果会接近0，即分母接近于0，分子除以一个接近于0的值会导致结果变的巨大，就会导致图中整个外圈是白的这种现象。
 
-## 2.阴影遮挡项
-描述的是那些具有半⽮量法线的微观⾯元中，有多少⽐例是同时被⼊射⽅向和反射⽅向看见的（或者说没有被阻挡的）。阴影遮挡项的值介于0 和 1 之间
-...
-### 2.1 Smith 阴影遮挡项
-Smith阴影遮挡项是现在业界所采用的主流阴影遮蔽函数。Smith阴影遮挡项被广泛认为比Cook-Torrance使用的V腔遮蔽函数（V-cavity masking function）函数更准确，并且考虑了法线分布的粗糙度和形状。  
-Smith阴影遮挡项把阴影和遮挡分开考虑:
+### 2.2 阴影遮蔽项与法线分布函数的联系
+阴影遮蔽项的解析形式的确认依赖于法线分布函数。在微平面理论中，通过可见微平面的投影面积之和等于宏观表面的投影面积的恒等式，选定法线分布函数，并选定阴影遮蔽项的模型，就可以唯一确认阴影遮蔽项的准确形式。在选定阴影遮蔽项的模型后，阴影遮蔽项的解析形式的确认则由对应的法线分布函数决定。    
+法线分布函数需要结合阴影遮蔽项，得到有效的法线分布强度。单纯的法线分布函数的输出值并不能产生有效反射的法线强度，因为光线的入射和出射会被微平面部分遮挡，即并不是所有法线指向半向量方向的微表面，都能在给定光照方向和观察方向下完成有效的反射。阴影遮蔽项即是对能顺利完成入射和出射的微平面概率进行建模的函数。法线分布函数需要结阴影遮蔽项，得到最终对微表面BRDF产生贡献的有效法线分布强度。  
+### 2.3 Smith 阴影遮蔽项
+目前，Smith阴影遮蔽项是现在业界所采用的主流阴影遮蔽函数。Smith阴影遮挡项被广泛认为比Cook-Torrance使用的V腔遮蔽函数（V-cavity masking function）函数更准确，并且考虑了法线分布的粗糙度和形状。  
+Smith阴影遮蔽项把阴影和遮挡分开考虑:
 G ( i , o , m ) \approx G _ { 1 } ( i , m ) G _ { 1 } ( o , m )
+
 参考文献：
-Games202 实时高质量着色 1（表面模型：Microfacet Model, GGX, Multiple Bounce Approximation）
+GAMES 202 实时高质量着色 1（表面模型：Microfacet Model, GGX, Multiple Bounce Approximation）
+Akenine-Moller, T., Haines, E., and Hoffman, N. (2009). Real- Time Rendering. CRC Press, third edition edition.
