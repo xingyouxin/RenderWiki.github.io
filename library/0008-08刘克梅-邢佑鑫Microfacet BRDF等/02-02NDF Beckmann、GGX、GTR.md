@@ -34,7 +34,7 @@ D ( h ) = \frac { \alpha ^ { 2 } } { \pi ( ( n \cdot h ) ^ { 2 } ( \alpha ^ { 2 
 #### 3.2.3特点
 GGX具有长尾性质，随着θ的增加，D ( h )会快速衰减，但是衰减到一定程度的时候衰减速度会变慢,即使到了90°时值仍不为0。从图2可以观察到，Beckmann的高光会逐渐消失,而GGX的高光会减少但不会消失。长尾性质使高光到非高光有一个柔和的过渡状态,而非Beckmann的高光到达90°后戛然而止  
 
-![image](https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/GGX%E4%B8%8EBeckmann%E5%AF%B9%E6%AF%94%E5%9B%BE.png)
+![image](https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/GGX%E4%B8%8EBeckmann%E5%AF%B9%E6%AF%94%E5%9B%BE.png)  
 图2 GGX与Beckmann对比图（图来自https://planetside.co.uk/news/terragen-4-5-release/）     
 
 ### 3.3GTR
@@ -45,7 +45,7 @@ D ( h ) = \frac { c } { ( 1 + ( n \cdot h ) ^ { 2 } ( \alpha ^ { 2 } - 1 ) ) ^ {
 α：法线的粗糙程度  
 θ：微表面半向量法线与宏观表面法线的夹角  
 γ参数用于控制尾部形状,随着γ值的增加，分布的尾部变得更短。γ=1时，GTR即Berry分布；γ=2时，GTR即GGX；当γ超过10会接近Beckmann分布。    
-![image]（https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/%E4%B8%8D%E5%90%8C%CE%B3%E5%80%BC%E5%AF%B9%E5%BA%94%E7%9A%84GTR%E5%88%86%E5%B8%83%E6%9B%B2%E7%BA%BF%E4%B8%8E%CE%B8%E7%9A%84%E5%85%B3%E7%B3%BB.png）  
+![image](https://github.com/RenderWiki/RenderWiki.github.io/blob/main/ImageResources/MicrofacetBRDFParts/GTR.png)  
 图3 不同γ值对应的GTR分布曲线与θ的关系（图来自GAMES 202 实时高质量着色 1）  
 
 #### 3.3.3特点
