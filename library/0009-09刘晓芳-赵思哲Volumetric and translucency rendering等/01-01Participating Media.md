@@ -43,6 +43,67 @@
 
 这些参数和之前光在介质中的相互作用实际上都与光的波长有关。即在一个特定的参与介质中，不同频率的光会以不同的概率被吸收或散射。所以理论上应该在渲染时使用光谱值，但在实时渲染中（除了少数例外[3]），我们使用RGB值来提高渲染效率。
 
+### 1.5 相函数
+参与介质由许多直径不一的粒子构成，粒子尺寸的分布会影响光向特定方向散射的概率。相函数从宏观上描述了光向各个方向散射的概率分布，如图x所示，相函数的参数![](http://latex.codecogs.com/svg.latex?\theta)为光前进方向（蓝色矢量）和散射方向（绿色矢量）之间的夹角，在图片中相机B方向上相函数值大于相机A方向上的相函数值，因此光更可能散射到B方向，B方向上的radiance比A方向上的radiance更强。
+
+（此处应有一张图）
+
+根据粒子尺寸和波长的相对大小![](http://latex.codecogs.com/svg.latex?s_p)值，介质的散射行为会不同：
+
+![](http://latex.codecogs.com/svg.latex?s_p=\frac{2\pi r}{\lambda})
+
+其中![](http://latex.codecogs.com/svg.latex?r)为粒子直径，![](http://latex.codecogs.com/svg.latex?\lambda)为光的波长。
+
+* 当![](http://latex.codecogs.com/svg.latex?s_p\ll1)时，发生的是Rayleigh散射（如空气）。
+* 当![](http://latex.codecogs.com/svg.latex?s_p\approx1)时，发生的是Mie散射。
+* 当![](http://latex.codecogs.com/svg.latex?s_p\gg1)时，发生的是几何散射（衍射、折射等，这里不做介绍）。
+
+#### 相函数的性质
+
+由于相函数是一个概率密度函数，他在球面上的积分为1，这也保证了能量守恒。
+
+下面分别介绍这些散射和其对应的相函数。
+
+#### 1.均匀散射
+
+理想下的各向同性散射，其相函数为最简单的相函数：
+
+![](http://latex.codecogs.com/svg.latex?p(\theta)=\frac{1}{4\pi})
+
+在这种理想情况下，光会向各个方向均匀散射。
+
+#### 2.Rayleigh散射
+
+Rayleigh散射描述的是空气的散射情况，其散射和波长有关，散射系数![](http://latex.codecogs.com/svg.latex?\sigma_s)和波长的四次方成反比：
+
+![](http://latex.codecogs.com/svg.latex?\sigma_{s}\left(\lambda\right)\propto\frac{1}{\lambda^{4}})
+
+这一关系表明，波长较短的蓝光和紫光的散射量会比波长较长的红光散射量更大，用RGB三通道可表示为![](http://latex.codecogs.com/svg.latex?\sigma_s=(0.490, 1.017, 2.339))，该散射系数归一化到亮度为1，可以根据需要进行缩放。
+
+（此处应有一张图）
+
+而其相函数和波长无关，主要有两个lobe，如图x所示，根据散射方向分别为前向散射和后向散射，其函数为：
+
+![](http://latex.codecogs.com/svg.latex?p(\theta)=\frac{3}{16 \pi}\left(1+\cos ^{2} \theta\right))
+
+#### 3.Mie散射
+Mie散射描述的是粒子尺寸与光波长相当时介质的散射情况，其散射和波长无关，特征是具有很强的方向性。其相函数具有一个明显的方向性lobe，形式比较复杂因此计算非常昂贵。
+
+（这里应有一张图）
+
+Mie散射常用的相函数为Henyey-Greenstein（HG）函数，通常用在烟雾或灰尘类型的强方向性参与介质中，其公式为：
+
+![](http://latex.codecogs.com/svg.latex?p_{h g}(\theta, g)=\frac{1-g^{2}}{4 \pi\left(1+g^{2}-2 g \cos \theta\right)^{1.5}})
+
+其中参数![](http://latex.codecogs.com/svg.latex?g\in[-1, 1])用来控制散射的方向，当![](http://latex.codecogs.com/svg.latex?g=0)时散射退化为均匀散射，当![](http://latex.codecogs.com/svg.latex?g\gt0)时主要向前散射，反之当![](http://latex.codecogs.com/svg.latex?g\lt0)时主要向后散射。
+
+另一个常用的相函数为HG相函数的近似，被称为Schlick相函数：
+
+![](http://latex.codecogs.com/svg.latex?p(\theta, k)=\frac{1-k^{2}}{4 \pi(1+k \cos \theta)^{2}}, \quad) where ![](http://latex.codecogs.com/svg.latex?\quad k \approx 1.55 g-0.55 g^{3})
+
+如图x所示，Schlick函数与HG函数非常接近，但其形式更简单计算的更快，在实际应用中效果非常接近。
+
+
 参考文献：
 
 [1] Tomas Akenine-Mller, Eric Haines, and Naty Hoffman. 2018. Real-Time Rendering, Fourth Edition (4th. ed.). A. K. Peters, Ltd., USA.

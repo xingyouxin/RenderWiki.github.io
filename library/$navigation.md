@@ -67,6 +67,9 @@
 - [05Caustics](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/05-05Caustics "05Caustics")
 - [06Subsurface Scattering](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/06-06Subsurface Scattering "06Subsurface Scattering")
 - [07Hair and Fur](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/07-07Hair and Fur "07Hair and Fur")
+- [08Approximating Volumetric Effects](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/08-08Approximating Volumetric Effects "08Approximating Volumetric Effects")
+- [09Volumetric Rendering](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/09-09Volumetric Rendering "09Volumetric Rendering")
+- [10Sky Rendering](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/10-10Sky Rendering "10Sky Rendering")
 
 ##### 10张所峰-彭元-曾言-吴小龙-李佳-陈子凌-吴忌RTRT等
 - [01RTRT](?file=0010-10张所峰-彭元-曾言-吴小龙-李佳-陈子凌-吴忌RTRT等/01-01RTRT "01RTRT")
