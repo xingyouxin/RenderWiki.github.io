@@ -1,24 +1,24 @@
 ## 简介
 
-Kulla-Conty近似主要指在微表面模型中，通过一种经验性的方式，针对BRDF项来补全多次反射丢失的能量。
+Kulla-Conty近似主要指在微表面模型中，通过一种**经验性的方式**，针对BRDF项来**补全多次反射丢失的能量**。
 
 ## 1.The Kulla-Conty Approximation
 
 ### 1.1问题引入
 
-下图展示了**白炉测试**实验中，Roughness由小到大的渲染图，仔细观察发现图中结果从左到右越来越暗，这是由于着色过程中仅考虑了一次反射。部分本应该反射出来的光线被忽略，因此Roughness值越大，效果越暗。
+下图展示了**白炉测试**实验中，Roughness由小到大的渲染图，仔细观察发现图中结果从左到右越来越暗，这是由于着色过程中仅考虑了一次反射。部分本应该反射出来的光线被忽略，因此**Roughness值越大，效果越暗**。
 
 <div align=center>![多次弹射引起能量丢失示意图](https://renderwiki.github.io/ImageResources/MicrofacetBRDFParts/多次弹射引起能量丢失示意图.png)</div>
 
 <center>图1-1 多次弹射引起能量丢失示意图</center>
 
-采用多次光线追踪的方法（Heitz et al. 2016）可以得到正确的结果，不过这种方法由于计算量偏大并不适合在实时光线追踪中应用。在实时渲染中通过补全多次反射引起的能量损失来解决该问题，即Kulla-Conty近似法。
+采用**多次光线追踪**的方法（Heitz et al. 2016）可以得到正确的结果，不过这种方法由于计算量偏大并不适合在实时光线追踪中应用。在实时渲染中通过补全多次反射引起的能量损失来解决该问题，即**Kulla-Conty近似法**。
 
 ## 1.2Kulla-Conty近似法
 
 ### 1.2.1BRDF无颜色时的处理方法
 
-Kulla-Conty近似是一种经验方法，旨在补全多次反射损失的能量。下述公式把BRDF、Lighting和cosine项在半球上进行积分，计算出射能量：
+Kulla-Conty近似是一种经验方法，旨在**补全多次反射损失的能量**。下述公式把BRDF、Lighting和cosine项在半球上进行积分，计算出射能量：
 
 <div align=center>![BRDF未采用KullaConty近似公式](https://renderwiki.github.io/ImageResources/MicrofacetBRDFParts/BRDF未采用KullaConty近似公式.png)</div>
 
@@ -40,7 +40,7 @@ Kulla-Conty近似是一种经验方法，旨在补全多次反射损失的能量
 
 ### 1.2.2BRDF有颜色时的处理方法
 
-有颜色意味着物体发生了能量吸收的情况，即存在能量的损失，单次反射的积分结果不是1。Kulla-Conty近似方法的思路是先计算不含颜色的能量损失，然后再乘上能量损失比例（即颜色项）：
+有颜色意味着**物体发生了能量吸收的情况**，即**存在能量的损失**，单次反射的积分结果不是1。Kulla-Conty近似方法的思路是先计算不含颜色的能量损失，然后再乘上能量损失比例（即颜色项）：
 
 <div align=center>![KullaConty近似公式（考虑颜色）其一](https://renderwiki.github.io/ImageResources/MicrofacetBRDFParts/KullaConty近似公式（考虑颜色）其一.png)</div>
 
@@ -51,11 +51,11 @@ Kulla-Conty近似是一种经验方法，旨在补全多次反射损失的能量
 因此有：
 
 - 直接观察到的能量：![](http://latex.codecogs.com/svg.latex?F_{avg}E_{avg})
-- 经过一次弹射的能量：![](http://latex.codecogs.com/svg.latex?F_{avg}(1-E_{avg})\cdotF_{avg}E_{avg})
+- 经过一次弹射的能量：![](http://latex.codecogs.com/svg.latex?F_{avg}(1-E_{avg} ) \cdot F_{avg}E_{avg})
 
   ...
 
-- 经过k次弹射的能量：![](http://latex.codecogs.com/svg.latex?F_{avg}^k(1-E_{avg})^k\cdotF_{avg}E_{avg})
+- 经过k次弹射的能量：![](http://latex.codecogs.com/svg.latex?F_{avg}^k(1-E_{avg} ) ^k \cdot F_{avg}E_{avg})
 
 将上述式子加起来可以得到一个级数，即Kulla-Conty近似的颜色项，如公式(3)。该颜色项乘上不含颜色的能量损失便得到了考虑颜色时应该补加的能量损失总量。
 
