@@ -6,7 +6,7 @@ SSDO（screenspace directional occlusion）是基于SSAO的改进，用于近似
 
 SSDO支持场景几何和光照的实时动态，比起单纯的遮蔽效果以外，还支持方向性的遮蔽（如阴影）以及间接光照效果（如色溢）。与经典的SSAO相比，其提出的泛化方法开销很小，可以容易地与其他模拟宏观结构光传输的方法相结合，在不引入artifact的情况下，在视觉上等同于SSAO的效果，如图1.1所示。
 
-<div align=center>![SSDO渲染结果](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/SSDO渲染结果.png)</div>
+<div align=center>![SSDO渲染结果](https://renderwiki.github.io/ImageResources/SSDO/SSDO渲染结果.png)</div>
 
 <center>图1.1 SSDO渲染结果不依赖于场景几何复杂度，在1600×1200 分辨率的图像下每秒运行20.4帧</center>
 
@@ -17,19 +17,16 @@ SSDO使用位置和法线的帧缓冲区作为输入，并用2个渲染pass输�
 
 SSDO将直接光照和间接光照按照下列公式所示分别计算：
 
-![](http://latex.codecogs.com/svg.latex?L_{o}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{o}\right)=\int_{\Omega^{+}, V=1} L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}\right) f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}\right) \cos \theta_{i} \mathrm{~d} \omega_{i})
+![](http://latex.codecogs.com/svg.latex?L_{o}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{o}))![](http://latex.codecogs.com/svg.latex?=\int_{\Omega^{+}, V=1} L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}))![](http://latex.codecogs.com/svg.latex? f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}))![](http://latex.codecogs.com/svg.latex? \cos \theta_{i} \mathrm{~d} \omega_{i})
 
-<math>L_{o}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{o}\right)=\int_{\Omega^{+}, V=1} L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}\right) f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}\right) \cos \theta_{i} \mathrm{~d} \omega_{i}</math>
 
-![](http://latex.codecogs.com/svg.latex?L_{o}^{\text {indir }}\left(\mathrm{p}, \omega_{o}\right)=\int_{\Omega+, V=0} L_{i}^{\text {indir }}\left(\mathrm{p}, \omega_{i}\right) f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}\right) \cos \theta_{i} \mathrm{~d} \omega_{i})
-
-<math>L_{o}^{\text {indir }}\left(\mathrm{p}, \omega_{o}\right)=\int_{\Omega+, V=0} L_{i}^{\text {indir }}\left(\mathrm{p}, \omega_{i}\right) f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}\right) \cos \theta_{i} \mathrm{~d} \omega_{i}</math>
+![](http://latex.codecogs.com/svg.latex?L_{o}^{\text {indir }}\left(\mathrm{p}, \omega_{o}))![](http://latex.codecogs.com/svg.latex?=\int_{\Omega+, V=0} L_{i}^{\text {indir }}\left(\mathrm{p}, \omega_{i}))![](http://latex.codecogs.com/svg.latex? f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}))![](http://latex.codecogs.com/svg.latex? \cos \theta_{i} \mathrm{~d} \omega_{i})
 
 对于某个从![](http://latex.codecogs.com/svg.latex?\omega_{o})方向上看的shading point，往半球![](http://latex.codecogs.com/svg.latex?\\Omega^{+})各个方向随机发射一条光线，如果发射的光线方向![](http://latex.codecogs.com/svg.latex?\omega_{i})不被阻挡，即可见性![](http://latex.codecogs.com/svg.latex?V=1)，就按照直接光照来计算，否则，可见性![](http://latex.codecogs.com/svg.latex?V=0)，按照间接光照来计算。![](http://latex.codecogs.com/svg.latex?L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}\right))能够从点光源或环境光贴图高效地计算。Diffuse的![](http://latex.codecogs.com/svg.latex?f_{r})（BRDF函数）为ρ/π。
 
 SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，如图1.2所示，对于SSAO，红圈有间接光照（全局光照），橙圈无间接光照（仅有直接光照）；对于SSDO，红圈无间接光照，橙圈有间接光照。SSDO的这一思想与路径追踪思想类似。
 
-<div align=center>![光照分解计算](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/光照分解计算.png)</div>
+<div align=center>![光照分解计算](https://renderwiki.github.io/ImageResources/SSDO/光照分解计算.png)</div>
 
 <center>图1.2 将shading point处的光照分解计算</center>
 
@@ -38,14 +35,14 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 
 可见性![](http://latex.codecogs.com/svg.latex?V)是在屏幕空间中近似计算的。对于每个法向为![](http://latex.codecogs.com/svg.latex?n)的shading point ![](http://latex.codecogs.com/svg.latex?P)，设置一组随机长度![](http://latex.codecogs.com/svg.latex?\lambda_{i} \in\left[0 \ldots r_{\max }\right])，![](http://latex.codecogs.com/svg.latex?r_{\max })是用户指定的半径，得到一组采样点![](http://latex.codecogs.com/svg.latex?P+\lambda_{i} \omega_{i})，分布在以![](http://latex.codecogs.com/svg.latex?P)为球心，![](http://latex.codecogs.com/svg.latex?n)为轴心的半球上。对于半球空间中的这些的采样点，有些会在物体表面外，而有些会在物体内部。在SSDO的可见性测试中，所有处于物体表面以下（即比第一个深度更远）的采样点都是遮挡物。
 
-<div align=center>![SSDO直接光照和间接光照示意](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/SSDO直接光照和间接光照示意.png)</div>
+<div align=center>![SSDO直接光照和间接光照示意](https://renderwiki.github.io/ImageResources/SSDO/SSDO直接光照和间接光照示意.png)</div>
 
 <center>图1.3 （左）计算带有方向性遮挡的直接光照，每个样本参与遮挡测试，（右）计算间接光照，每个表面patch存储了该点的直接光照</center>
 
 如图1.3左所示，采样点（A、B、C、D）中，A、B和D位于物体内部，对于![](http://latex.codecogs.com/svg.latex?P)是遮挡物；而C处于物体外部，对于![](http://latex.codecogs.com/svg.latex?P)可见。逆向投影到屏幕空间即可测试采样点是否处于物体表面以下，可以从位置缓冲区（position buffer）中读取采样点在世界空间中的3D位置，接着按照红色箭头的位置投影到物体表面上。
 
 
-<div align=center>![SSAO和SSDO对比](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/SSAO和SSDO对比.png)</div>
+<div align=center>![SSAO和SSDO对比](https://renderwiki.github.io/ImageResources/SSDO/SSAO和SSDO对比.png)</div>
 
 <center>图1.4 左为SSAO直接光照和SSDO直接光照遮挡处对比，右为SSDO直接光照和一次额外bounce间接光照的遮挡处对比</center>
 
@@ -64,7 +61,7 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 ### 1.3屏幕空间问题及解决方法
 然而，基于屏幕空间的方法本身会有几个严重的问题：遮挡测试时将采样点错误分类，或者对于不可见的地方贡献的间接光照的计算缺失。如图1.5所示，从左到右是动画的四帧，光线从黄色物体上经过一次弹射到灰色平面上，产生箭头所指的色溢现象。随着视角的不断偏移，黄色墙面逐渐变得不可见直至背向屏幕，此时灰色平面的色溢现象逐渐淡去，直至完全消失。
 
-<div align=center>![屏幕空间的色溢问题](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/屏幕空间的色溢问题.png)</div>
+<div align=center>![屏幕空间的色溢问题](https://renderwiki.github.io/ImageResources/SSDO/屏幕空间的色溢问题.png)</div>
 
 <center>图1.5 不可见区域无法产生间接光照贡献</center>
 
@@ -76,7 +73,7 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 
 之前仅仅判断采样点是否在第一个深度值以下（离相机更远处），在获得多个深度值以后，还测试采样点是否在第二个深度值的前面。当使用双流形几何时，第一个和第二个深度值对应于一个物体的正面和背面，所以两个面之间的采样点肯定在这个物体内部(见图6右)。对于深度复杂度较高的场景，要重建所有阴影，需要对所有连续的深度值(第三和第四个深度值等等)以相同的方式计算。
 
-<div align=center>![遮挡测试中错误分类](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/遮挡测试中错误分类.png)</div>
+<div align=center>![遮挡测试中错误分类](https://renderwiki.github.io/ImageResources/SSDO/遮挡测试中错误分类.png)</div>
 
 <center>图1.6 （左）为遮挡测试中两种分类错误的情况，（右）为各自的解决方法</center>
 
@@ -85,7 +82,7 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 #### 1.3.2额外相机
 另外，还可以使用不同的摄像机位置来代替不同的深度层查看隐藏区域。除了获取屏幕外遮挡物的信息外，不同的摄像机位置对于在掠角下观看的多边形尤其有用。当使用额外的相机时，之前消失的色溢现象就会变得可见。额外相机的视点最好与之前相机完全不同，例如围绕物体中心旋转90度，从原本相机的掠射角度（grazing angle）观察多边形。当然，在额外相机观察的多边形可能被其他物体遮挡，此时可以在额外相机的基础上使用深度剥离来解决。如图6所示，在使用多个相机后，可见性测试和色溢都能计算更加准确。
 
-<div align=center>![更加准确的结果](https://renderwiki.github.io/ImageResources/Screen Space Directional Occlusion (SSDO)/更加准确的结果.png)</div>
+<div align=center>![更加准确的结果](https://renderwiki.github.io/ImageResources/SSDO/更加准确的结果.png)</div>
 
 <center>图1.6 （上）为可见性遮挡测试，（下）为一次bounce的色溢，（左）为单个相机，（右）为多个相机</center>
 
