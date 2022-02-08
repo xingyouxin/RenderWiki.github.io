@@ -20,7 +20,7 @@ AO的顶层想法可以总结为三点：
 
 AO的理论背景可以从渲染方程推导得出。首先，可以对渲染方程进行近似，把它拆成两项：
 
-<div align=center>![](https://renderwiki.github.io/ImageResources/SSAO/渲染方程的近似拆分.svg)</div>
+<div align=center>![](https://renderwiki.github.io/ImageResources/SSAO/SSAO-渲染方程近似.svg)</div>
 
 <!-- $$
 \begin{aligned}
@@ -31,7 +31,7 @@ L_o(p,\omega_o) &= \int_{\Omega^+} L_i(p,\omega_i) f_r(p,\omega_i,\omega_o) V(p,
 \end{aligned}
 $$ -->
 
-其中，![](http://latex.codecogs.com/svg.latex?L_i(p)%20\cdot%20\rho)是AO的常数项，![](http://latex.codecogs.com/svg.latex?k_A)表示着色点各个方向上visibility的加权平均值。之所以可以如此近似拆分，是AO假设了着色点接收的间接光照为常数，在这种情况下，近似拆分可认为是准确的。
+其中，![](https://renderwiki.github.io/ImageResources/SSAO/SSAO-常数项.svg)是AO的常数项，![](http://latex.codecogs.com/svg.latex?k_A)表示着色点各个方向上visibility的加权平均值。之所以可以如此近似拆分，是AO假设了着色点接收的间接光照为常数，在这种情况下，近似拆分可认为是准确的。
 
 ### 1.2屏幕空间
 
