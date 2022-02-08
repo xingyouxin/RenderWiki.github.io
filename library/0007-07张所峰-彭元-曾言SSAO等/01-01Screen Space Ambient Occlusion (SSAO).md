@@ -2,6 +2,10 @@
 
 屏幕空间环境光遮蔽(SSAO)是一种实时有效地逼近环境遮挡效果的计算机图形学技术。它是Vladimir Kajalin在Crytek工作时开发的，2007年，同样由Crytek开发的电子游戏《孤岛危机》(Crysis)首次使用了它。
 
+<div align="center">![使用SSAO与否](https://renderwiki.github.io/ImageResources/SSAO/SSAO-使用SSAO与否.png)</div>
+
+<center>图1.1 使用SSAO与否的对比图（左：使用了SSAO，右：没有使用SSAO）</center>
+
 该算法以像素着色器的形式实现，对存储在纹理中的场景深度缓冲区进行分析。对于屏幕上的每个像素，像素着色器采样当前像素周围的深度值，并试图从每个采样点计算遮挡量。在其最简单的实现中，遮蔽因子只取决于采样点和当前点之间的深度差。
 
 ## 1.SSAO (Screen Space Ambient Occlusion)
@@ -47,6 +51,10 @@ $$ -->
 
 3. 只有当超过半数的采样点都被认为是遮挡时，才开始考虑AO。计算被遮挡的点占所有采样点的比率，作为![](http://latex.codecogs.com/svg.latex?k_A)。
 
+<div align="center">![SSAO算法示意图](https://renderwiki.github.io/ImageResources/SSAO/SSAO-算法.png)</div>
+
+<center>图1.2 SSAO算法示意图</center>
+
 ### 1.4屏幕空间环境光遮蔽的优缺点
 
 与其他AO解决方案相比，SSAO具有以下优点：
@@ -66,6 +74,10 @@ $$ -->
 SSAO也有以下缺点:
 
 - 很难在深度不连续的情况下得到正确的结果，例如物体边缘。
+
+<div align="center">![SSAO边缘错误](https://renderwiki.github.io/ImageResources/SSAO/SSAO-边缘错误.png)</div>
+
+<center>图1.3 SSAO边缘错误（左：没有SSAO，右：使用SSAO）</center>
 
 - 采样点个数的选择，少则存在噪声，多则计算时间过长。可以采取先计算少量的采样点，然后对得到的结果做去噪。
 
