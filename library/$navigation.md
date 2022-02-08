@@ -60,8 +60,13 @@
 - [06Linearly Transformed Cosines &#40;LTC&#41;](?file=0008-08刘克梅-邢佑鑫Microfacet BRDF等/06-06Linearly Transformed Cosines &#40;LTC&#41; "06Linearly Transformed Cosines &#40;LTC&#41;")
 
 ##### 09刘晓芳-赵思哲Volumetric and translucency rendering等
-- [01Volumetric and translucency rendering 参考《real-time rendering4》14章，自己分知识点把](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/01-01Volumetric and translucency rendering 参考《real-time rendering4》14章，自己分知识点把 "01Volumetric and translucency rendering 参考《real-time rendering4》14章，自己分知识点把")
-- [02可以按章节内容多分几个md文件出来](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/02-02可以按章节内容多分几个md文件出来 "02可以按章节内容多分几个md文件出来")
+- [01Participating Media](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/01-01Participating Media "01Participating Media")
+- [02Volumatric Rendering Equation](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/02-02Volumatric Rendering Equation "02Volumatric Rendering Equation")
+- [03Coverage and Blending](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/03-03Coverage and Blending "03Coverage and Blending")
+- [04Refraction](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/04-04Refraction "04Refraction")
+- [05Caustics](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/05-05Caustics "05Caustics")
+- [06Subsurface Scattering](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/06-06Subsurface Scattering "06Subsurface Scattering")
+- [07Hair and Fur](?file=0009-09刘晓芳-赵思哲Volumetric and translucency rendering等/07-07Hair and Fur "07Hair and Fur")
 
 ##### 10张所峰-彭元-曾言-吴小龙-李佳-陈子凌-吴忌RTRT等
 - [01RTRT](?file=0010-10张所峰-彭元-曾言-吴小龙-李佳-陈子凌-吴忌RTRT等/01-01RTRT "01RTRT")
