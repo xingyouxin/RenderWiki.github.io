@@ -57,10 +57,7 @@ __DLSS__ 利用 NVIDIA 超级计算机来训练和改进其 AI 模型。更新�
 __DLSS__ 历经三代发展，功能愈加强大，目前最新版本为DLSS 2.1。  
 **DLSS 2.0**可以通过仅渲染1/4到一半的像素就可以提供与原始分辨率相当的图像质量。并使用非特定的游戏内容进行训练，提供能在多个游戏工作的通用网络，能够更快集成到更多游戏中。  
 **DLSS 2.0**提供了3种图像质量模式：**Quality**，**Balanced**，**Performance**。**DLSS 2.1** 新增 **Ultra Performance** 模式。不同模式可控制游戏的内部渲染分辨率，Quality模式可实现高达4倍的超分辨率（即1080p→4K）。  
-<div align="center">![游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png)</div><center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[[5]](#s1)</sup></center>  
-
-
-
+<div><div align="center">![游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比](https://renderwiki.github.io/ImageResources/Super sampling/DLSS 2.0 Quality模式开启图片对比.png)</div><center>图2.2 游戏Deliver Us the Moon – DLSS 2.0 Quality模式开启对比<sup>[[5]](#s1)</sup></center></div>
 
 ### 2.3 基本技术实现
 **DLSS**深度神经网络在 NVIDIA DGX 驱动的超级计算机上进行训练。**DLSS 2.0**在 AI 网络中有两个主要输入：
