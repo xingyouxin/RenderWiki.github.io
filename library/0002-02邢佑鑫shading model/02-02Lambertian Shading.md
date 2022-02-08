@@ -13,7 +13,7 @@
 ### 1.2公式表达
 这就引出了**Lambertian shading model**：
 
-![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, n \cdot l))
+![](http://latex.codecogs.com/svg.latex?L=k_dImax(0, n \cdot l ) )
 
 其中，![](http://latex.codecogs.com/svg.latex?L)是**像素颜色**；![](http://latex.codecogs.com/svg.latex?k_d)是**漫反射系数**（diffuse coefficient），或为**物体表面颜色**；![](http://latex.codecogs.com/svg.latex?I)是**光源的强度**（真实世界光源的强度将会随着距离平方下降，这比在简单渲染器中麻烦的多）。
 
