@@ -17,12 +17,10 @@ SSDO使用位置和法线的帧缓冲区作为输入，并用2个渲染pass输�
 
 SSDO将直接光照和间接光照按照下列公式所示分别计算：
 
-![](http://latex.codecogs.com/svg.latex?L_{o}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{o}))![](http://latex.codecogs.com/svg.latex?=\int_{\Omega^{+}, V=1} L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}))![](http://latex.codecogs.com/svg.latex? f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}))![](http://latex.codecogs.com/svg.latex? \cos \theta_{i} \mathrm{~d} \omega_{i})
+<div align=center>![公式1](https://renderwiki.github.io/ImageResources/SSDO/公式1.png)</div>
 
 
-![](http://latex.codecogs.com/svg.latex?L_{o}^{\text {indir }}\left(\mathrm{p}, \omega_{o}))![](http://latex.codecogs.com/svg.latex?=\int_{\Omega+, V=0} L_{i}^{\text {indir }}\left(\mathrm{p}, \omega_{i}))![](http://latex.codecogs.com/svg.latex? f_{r}\left(\mathrm{p}, \omega_{i}, \omega_{o}))![](http://latex.codecogs.com/svg.latex? \cos \theta_{i} \mathrm{~d} \omega_{i})
-
-对于某个从![](http://latex.codecogs.com/svg.latex?\omega_{o})方向上看的shading point，往半球![](http://latex.codecogs.com/svg.latex?\\Omega^{+})各个方向随机发射一条光线，如果发射的光线方向![](http://latex.codecogs.com/svg.latex?\omega_{i})不被阻挡，即可见性![](http://latex.codecogs.com/svg.latex?V=1)，就按照直接光照来计算，否则，可见性![](http://latex.codecogs.com/svg.latex?V=0)，按照间接光照来计算。![](http://latex.codecogs.com/svg.latex?L_{i}^{\mathrm{dir}}\left(\mathrm{p}, \omega_{i}\right))能够从点光源或环境光贴图高效地计算。Diffuse的![](http://latex.codecogs.com/svg.latex?f_{r})（BRDF函数）为ρ/π。
+对于某个从![](http://latex.codecogs.com/svg.latex?\omega_{o})方向上看的shading point，往半球![](http://latex.codecogs.com/svg.latex?\\Omega^{+})各个方向随机发射一条光线，如果发射的光线方向![](http://latex.codecogs.com/svg.latex?\omega_{i})不被阻挡，即可见性![](http://latex.codecogs.com/svg.latex?V=1)，就按照直接光照来计算，否则，可见性![](http://latex.codecogs.com/svg.latex?V=0)，按照间接光照来计算。![](http://latex.codecogs.com/svg.latex?L_{i}^{\mathrm{dir}})(![](http://latex.codecogs.com/svg.latex?\mathrm{p},\omega_{i}))能够从点光源或环境光贴图高效地计算。Diffuse的![](http://latex.codecogs.com/svg.latex?f_{r})（BRDF函数）为ρ/π。
 
 SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，如图1.2所示，对于SSAO，红圈有间接光照（全局光照），橙圈无间接光照（仅有直接光照）；对于SSDO，红圈无间接光照，橙圈有间接光照。SSDO的这一思想与路径追踪思想类似。
 
@@ -49,12 +47,12 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 #### 1.2.1直接光照
 对于带有方向性遮挡的直接光照，此时只有C是不被遮挡的，因此只计算从C方向来的直接光照。这一做法在不同方向不同颜色的入射光的效果更显著，如图1.4所示，SSDO可以正确显示得到的彩色阴影（红色和蓝色），而SSAO只是在自遮挡位置显示灰色阴影。P点处的直接光照计算公式如下：
 
-![](http://latex.codecogs.com/svg.latex?L_{\mathrm{dir}}(\mathbf{P})=\sum_{i=1}^{N} \frac{\rho}{\pi} L_{\mathrm{in}}\left(\omega_{i}\right) V\left(\omega_{i}\right) \cos \theta_{i} \Delta \omega)
+<div align=center>![公式2](https://renderwiki.github.io/ImageResources/SSDO/公式2.png)</div>
 
 #### 1.2.2间接光照
 对于间接光照的计算，每个被分类为遮挡物的采样点（A、B、D）作为间接光照的发送者，P点作为接收者。发送者放置了一个小patch在表面上，在第一个pass中，直接光照被存储在帧缓存（frame buffer）里，对应的像素颜色为向P点发送的辐射亮度radiance。在这里注意到每个patch都有法线，这是为了防止背向面造成不应该存在的漏光现象而设置的。P点处接收其周围的patch传来的间接光照计算公式如下：
 
-![](http://latex.codecogs.com/svg.latex?L_{\mathrm{ind}}(\mathbf{P})=\sum_{i=1}^{N} \frac{\rho}{\pi} L_{\mathrm{pixel}}\left(1-V\left(\omega_{i}\right)\right) \frac{A_{s} \cos \theta_{s_{i}} \cos \theta_{\mathrm{r}_{i}}}{d_{i}^{2}})
+<div align=center>![公式3](https://renderwiki.github.io/ImageResources/SSDO/公式1.png)</div>
 
 ![](http://latex.codecogs.com/svg.latex?d_{i})是![](http://latex.codecogs.com/svg.latex?P)和遮挡物![](http://latex.codecogs.com/svg.latex?i)的距离（被clamp到1），![](http://latex.codecogs.com/svg.latex?\theta_{s_{i}})和![](http://latex.codecogs.com/svg.latex?\theta_{\mathrm{r}_{i}})是发送者/接收者的法线和传输方向的夹角。![](http://latex.codecogs.com/svg.latex?A_{s})是发送者patch的面积，![](http://latex.codecogs.com/svg.latex?A_{s}=\pi r_{\max }^{2} / N)（N为圆被分的区域个数），实际值可以根据处于半球的坡度来手动调节，以控制色溢的程度。A点由于法向朝向相对于![](http://latex.codecogs.com/svg.latex?P)处于背向，所以不贡献间接光照；C点（映射到物体表面后）处于半球外，也不参与贡献；此时B和D作为发送者向![](http://latex.codecogs.com/svg.latex?P)点贡献间接光照。
 
