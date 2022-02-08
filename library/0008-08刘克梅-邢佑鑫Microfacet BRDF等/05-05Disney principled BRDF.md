@@ -1,6 +1,6 @@
 ## 简介
 
-PBR材质的参数与物理量相关，对于艺术家来说并不友好。例如现代物理中金属的折射率是以复数形式表示的，如n-ik。因此诞生了一些对艺术家友好的材质模型，Disney principled BRDF就是其中的代表。
+PBR材质的参数与物理量相关，对于艺术家来说并不友好。例如现代物理中金属的折射率是以复数形式表示的，如![](http://latex.codecogs.com/svg.latex?n-ik)。因此诞生了一些对艺术家友好的材质模型，Disney principled BRDF就是其中的代表。
 
 ## 1.Disney principled BRDF
 
@@ -21,7 +21,7 @@ Disney principled BRDF在物理上并不一定完全是正确的。但是一般�
 
 <div align=center>![Disney principled BRDF材质效果展示](https://renderwiki.github.io/ImageResources/MicrofacetBRDFParts/Disney principled BRDF材质效果展示.png)</div>
 
-<cneter>图1 Disney principled BRDF材质效果展示 </center>
+<center>图1 Disney principled BRDF材质效果展示 </center>
 
 例如第一行中展示了添加次表面散射的效果，从左到右次表面散射程度越来越强，球体整体表现为越来越扁平；
 
