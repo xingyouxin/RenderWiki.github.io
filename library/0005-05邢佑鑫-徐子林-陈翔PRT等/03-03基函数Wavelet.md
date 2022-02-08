@@ -6,19 +6,19 @@
 ## 1.哈尔小波
 
 ### 1.1 一维哈尔小波
-哈尔小波是最早提出且最简单的小波函数，其母小波 $\psi(x)$ 和尺度函数 $\phi(x)$ 定义如下：
+哈尔小波是最早提出且最简单的小波函数，其母小波 ![](http://latex.codecogs.com/svg.latex?\psi(x)) 和尺度函数 ![](http://latex.codecogs.com/svg.latex?\phi(x)) 定义如下：
 
 <div align=center>![](ImageResources/Wavelet/mother.png)</div>
 
 <div align=center>![](ImageResources/Wavelet/scaling.png)</div>
 
-对原始的母小波和尺度函数进行平移和缩放，可以得到 $j$ 阶的哈尔小波基函数公式：
+对原始的母小波和尺度函数进行平移和缩放，可以得到 ![](http://latex.codecogs.com/svg.latex?j) 阶的哈尔小波基函数公式：
 
 <div align=center>![](ImageResources/Wavelet/motherL2.png)</div>
 
 <div align=center>![](ImageResources/Wavelet/scalingL2.png)</div>
 
-下面给出1阶哈尔母小波 $\psi^1(x)$ 和2阶哈尔尺度函数 $\phi^2(x)$ 的示意图：
+下面给出1阶哈尔母小波 ![](http://latex.codecogs.com/svg.latex?\psi^1(x)) 和 2 阶哈尔尺度函数 ![](http://latex.codecogs.com/svg.latex?\phi^2(x)) 的示意图：
 
 <div align=center>![](ImageResources/Wavelet/motherL2Fig.png)</div>
 
@@ -38,7 +38,7 @@
 ### 1.3 系数压缩
 将一个函数（通常是一张图片）经过小波变换后，得到的系数往往是稀疏的，即大多数系数都是0或很小的值。
 
-一般来说，保留其中最大 $0.5\% \sim 10\%$ 的系数就足以还原出接近原函数的结果。
+一般来说，保留其中最大 ![](http://latex.codecogs.com/svg.latex?0.5\% \sim 10\%) 的系数就足以还原出接近原函数的结果。
 
 下图是使用相同系数下哈尔小波（W）与 SH 和 Reference 的比较：
 <div align=center>![](ImageResources/Wavelet/compareSH.png)</div>
