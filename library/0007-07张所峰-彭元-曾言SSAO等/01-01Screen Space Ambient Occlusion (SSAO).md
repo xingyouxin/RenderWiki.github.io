@@ -20,30 +20,32 @@ AO的顶层想法可以总结为三点：
 
 AO的理论背景可以从渲染方程推导得出。首先，可以对渲染方程进行近似，把它拆成两项：
 
-$$
+![](http://latex.codecogs.com/svg.latex?\begin{aligned}L_o(p,\omega_o)%20&=%20\int_{\Omega^+}%20L_i(p,\omega_i)%20f_r(p,\omega_i,\omega_o)%20V(p,\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i%20\\&\approx%20\frac{\int_{\Omega^+}%20V(p,%20\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}{\int_{\Omega^+}%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}%20\cdot%20\int_{\Omega^+}%20L_i(p,\omega_i)%20f_r(p,\omega_i,\omega_o)%20V(p,\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i%20\\&=%20\frac{\int_{\Omega^+}%20V(p,%20\omega_i)%20cos\theta_i%20\,%20\mathrm{d}%20\omega_i}{\pi}%20\cdot%20L_i(p%20\cdot%20\frac{\rho}{\pi}%20\cdot%20\pi%20\\&=%20k_A%20\cdot%20L_i(p)%20\cdot%20\rho\end{aligned})
+
+<!-- $$
 \begin{aligned}
 L_o(p,\omega_o) &= \int_{\Omega^+} L_i(p,\omega_i) f_r(p,\omega_i,\omega_o) V(p,\omega_i) cos\theta_i \, \mathrm{d} \omega_i \\&
 \approx \frac{\int_{\Omega^+} V(p, \omega_i) cos\theta_i \, \mathrm{d} \omega_i}{\int_{\Omega^+} cos\theta_i \, \mathrm{d} \omega_i} \cdot \int_{\Omega^+} L_i(p,\omega_i) f_r(p,\omega_i,\omega_o) V(p,\omega_i) cos\theta_i \, \mathrm{d} \omega_i \\&
 = \frac{\int_{\Omega^+} V(p, \omega_i) cos\theta_i \, \mathrm{d} \omega_i}{\pi} \cdot L_i(p) \cdot \frac{\rho}{\pi} \cdot \pi \\&
 = k_A \cdot L_i(p) \cdot \rho
 \end{aligned}
-$$
+$$ -->
 
-其中，$L_i(p) \cdot \rho$是AO的常数项，$k_A$表示着色点各个方向上visibility的加权平均值。之所以可以如此近似拆分，是AO假设了着色点接收的间接光照为常数，在这种情况下，近似拆分可认为是准确的。
+其中，![](http://latex.codecogs.com/svg.latex?L_i(p)%20\cdot%20\rho)是AO的常数项，![](http://latex.codecogs.com/svg.latex?k_A)表示着色点各个方向上visibility的加权平均值。之所以可以如此近似拆分，是AO假设了着色点接收的间接光照为常数，在这种情况下，近似拆分可认为是准确的。
 
 ### 1.2屏幕空间
 
-可以在对象空间(object space)内计算AO中的$k_A$项，但是其计算开销与场景复杂度成正比。通常，一些关于遮挡的信息可以纯粹从屏幕空间(screen space)数据中推导出来，这些数据已经可用，比如深度和法线。这种方法有一个固定的成本，与场景的详细程度无关，而只与渲染所用的分辨率有关。
+可以在对象空间(object space)内计算AO中的![](http://latex.codecogs.com/svg.latex?k_A)项，但是其计算开销与场景复杂度成正比。通常，一些关于遮挡的信息可以纯粹从屏幕空间(screen space)数据中推导出来，这些数据已经可用，比如深度和法线。这种方法有一个固定的成本，与场景的详细程度无关，而只与渲染所用的分辨率有关。
 
 ### 1.3屏幕空间环境光遮蔽算法
 
-通常，AO将计算$k_A$的范围被限定在着色点法线方向上半径为R的半球内。然而由于早期的渲染管线中比较难拿到屏幕空间的物体法线信息，因此SSAO是这样进行的：
+通常，AO将计算![](http://latex.codecogs.com/svg.latex?k_A)的范围被限定在着色点法线方向上半径为R的半球内。然而由于早期的渲染管线中比较难拿到屏幕空间的物体法线信息，因此SSAO是这样进行的：
 
 1. 任何着色点都在以它为中心半径为R的球内采样若干个点。
 
 2. 将这些采样点投影到相机空间，得到它们的深度，与屏幕空间中的深度图比较。若采样点的深度大于屏幕空间中对应位置的深度，则认为改采样点被遮挡。
 
-3. 只有当超过半数的采样点都被认为是遮挡时，才开始考虑AO。计算被遮挡的点占所有采样点的比率，作为$k_A$。
+3. 只有当超过半数的采样点都被认为是遮挡时，才开始考虑AO。计算被遮挡的点占所有采样点的比率，作为![](http://latex.codecogs.com/svg.latex?k_A)。
 
 ### 1.4屏幕空间环境光遮蔽的优缺点
 
