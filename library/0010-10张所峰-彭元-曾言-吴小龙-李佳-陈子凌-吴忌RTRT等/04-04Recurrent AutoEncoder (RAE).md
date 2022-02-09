@@ -28,4 +28,4 @@ RAE使用的损失函数包含一个空间的L1损失、一个梯度域的L1损�
 
 参考文献：
 
-...
+[1] C. R. A. Chaitanya, A. S. Kaplanyan, C. Schied, M. Salvi, A. Lefohn, D. Nowrouzezahrai, and T. Aila, “Interactive reconstruction of monte carlo image sequences using a recurrent denoising autoencoder,” ACM Trans. Graph., vol. 36, no. 4, pp. 1–12, 2017.
