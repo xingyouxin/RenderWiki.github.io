@@ -12,7 +12,9 @@
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Volumatric Rendering Equation/体积渲染方程.svg)</div>
 
-其中![](http://latex.codecogs.com/svg.latex?T_{r}(\mathbf{c}, \mathbf{x}))是给定点![](http://latex.codecogs.com/svg.latex?\mathbf{x})和相机位置![](http://latex.codecogs.com/svg.latex?\mathbf{c})之间的透射率，![](http://latex.codecogs.com/svg.latex?L_{\text {scat }}(\mathbf{x}, \mathbf{v}))是沿视图方向上给定点![](http://latex.codecogs.com/svg.latex?\mathbf{x})的散射光。计算的不同部分如图1所示。
+（<math>L_{i}(\mathbf{c},-\mathbf{v})=T_{r}(\mathbf{c}, \mathbf{p}) L_{o}(\mathbf{p}, \mathbf{v})+\int_{t=0}^{\|\mathbf{p}-\mathbf{c}\|} T_{r}(\mathbf{c}, \mathbf{c}-\mathbf{v} t) L_{\text {scat }}(\mathbf{c}-\mathbf{v} t, \mathbf{v}) \sigma_{s} d t</math>）
+
+其中![](http://latex.codecogs.com/svg.latex?T_{r}(\mathbf{c}, \mathbf{x}))是给定点![](http://latex.codecogs.com/svg.latex?\mathbf{x})和相机位置![](http://latex.codecogs.com/svg.latex?\mathbf{c})之间的透射率，![](http://latex.codecogs.com/svg.latex?L_{\text {scat }}(\mathbf{x}, \mathbf{v}))是沿视图方向上给定点![](http://latex.codecogs.com/svg.latex?\mathbf{x})的散射光。计算的不同部分如图1所示。（<math>T_{r}(\mathbf{c}, \mathbf{x})</math>)、(<math>x</math>)、(<math>c</math>)、（<math>L_{\text {scat }}(\mathbf{x}, \mathbf{v})</math>)
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Volumatric Rendering Equation/来自点光源的单次散射积分的说明.png)</div>
 
@@ -22,25 +24,29 @@
 
 #### 1.2.1定义
 
-透射率（transmittance）![](http://latex.codecogs.com/svg.latex?T_{r})表示通过介质内一定距离的光的比率，这种关系也被成为比尔-朗伯定律(Beer-Lambert Law)：
+透射率（transmittance）![](http://latex.codecogs.com/svg.latex?T_{r})表示通过介质内一定距离的光的比率，这种关系也被成为比尔-朗伯定律(Beer-Lambert Law)：（<math>T_{r}</math>)
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Volumatric Rendering Equation/transmittance计算公式.svg)</div>
 
-其中光学深度![](http://latex.codecogs.com/svg.latex?\tau)是无单位的，表示光的衰减量。消光系数或穿过的距离越大，光学深度就越大，能够通过介质的光就越少。一个光学深度（![](http://latex.codecogs.com/svg.latex?\tau=1))将去除大约60%的光。
+（<math>T_{r}\left(\mathbf{x}_{a}, \mathbf{x}_{b}\right)=e^{-\tau}, \quad \text { where } \quad \tau=\int_{\mathbf{x}=\mathbf{x}_{a}}^{\mathbf{x}_{b}} \sigma_{t}(\mathbf{x})\|d \mathbf{x}\|</math>）
 
-当厚度发生变化时，上式可以简化为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}})，其中![](http://latex.codecogs.com/svg.latex?d)是通过材质体的距离，物理消光参数![](http://latex.codecogs.com/svg.latex?\sigma_{t})表示光通过介质时的衰减速度。例如，在RGB中![](http://latex.codecogs.com/svg.latex?\sigma_{t}=(0.5,1,2))，那么通过深度![](http://latex.codecogs.com/svg.latex?d=1m)的光将为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))
+其中光学深度![](http://latex.codecogs.com/svg.latex?\tau)是无单位的，表示光的衰减量。消光系数或穿过的距离越大，光学深度就越大，能够通过介质的光就越少。一个光学深度（![](http://latex.codecogs.com/svg.latex?\tau=1))将去除大约60%的光。（<math>\tau</math>)、（<math>\tau=1</math>)
 
-为了让艺术家直观地进行创作，Bavoil[2]将目标颜色![](http://latex.codecogs.com/svg.latex?t_{c})设定为某个给定距离![](http://latex.codecogs.com/svg.latex?d)的透光率量，那么消光系数![](http://latex.codecogs.com/svg.latex?\sigma_{t})可以恢复为
+当厚度发生变化时，上式可以简化为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}})，其中![](http://latex.codecogs.com/svg.latex?d)是通过材质体的距离，物理消光参数![](http://latex.codecogs.com/svg.latex?\sigma_{t})表示光通过介质时的衰减速度。例如，在RGB中![](http://latex.codecogs.com/svg.latex?\sigma_{t}=(0.5,1,2))，那么通过深度![](http://latex.codecogs.com/svg.latex?d=1m)的光将为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))。（<math>T_{r}=e^{-d \sigma_{t}}</math>)、（<math>d</math>)、（<math>\sigma_{t}</math>)、（<math>\sigma_{t}=(0.5,1,2)</math>)、（<math>d=1m</math>)、（T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))
+
+为了让艺术家直观地进行创作，Bavoil[2]将目标颜色![](http://latex.codecogs.com/svg.latex?t_{c})设定为某个给定距离![](http://latex.codecogs.com/svg.latex?d)的透光率量，那么消光系数![](http://latex.codecogs.com/svg.latex?\sigma_{t})可以恢复为（<math>t_{c}</math>)、（<math>d</math>)、（<math>\sigma_{t}</math>)
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Volumatric Rendering Equation/消光系数计算公式.svg)</div>
+
+（<math>\sigma_{t}=\frac{-\log \left(\mathbf{t}_{c}\right)}{d}</math>）
 
 #### 1.2.2应用场景
 
 透射率主要应用于：
 
-​        i.     不透明表面的出射辐射度![](http://latex.codecogs.com/svg.latex?L_{o}(\mathbf{p}, \mathbf{v}))
+​        i.     不透明表面的出射辐射度![](http://latex.codecogs.com/svg.latex?L_{o}(\mathbf{p}, \mathbf{v}))。（<math>L_{o}(\mathbf{p}, \mathbf{v})</math>)
 
-​        ii.     由向内散射事件产生的辐射度![](http://latex.codecogs.com/svg.latex?L_{\text {scat }}(\mathbf{x}, \mathbf{v}))
+​        ii.     由向内散射事件产生的辐射度![](http://latex.codecogs.com/svg.latex?L_{\text {scat }}(\mathbf{x}, \mathbf{v}))。（<math>L_{\text {scat }}(\mathbf{x}, \mathbf{v})</math>)
 
 ​         iii.      从一个散射事件到光源的每个路径
 
@@ -51,6 +57,8 @@
 对于半透明表面（表面由一层半透明材质薄层组成），沿着它的法线或切线看，将导致不同程度的背景遮挡。即路径长度会随角度发生变化。Drobot[3]提出了这样一种方法，透射率![](http://latex.codecogs.com/svg.latex?T_{r})被评估为
 
 ![](http://latex.codecogs.com/svg.latex?\mathbf{T}_{r}=e^{-\boldsymbol{\sigma}_{t} d}, \quad \text { where } \quad d=\frac{t}{\max (0.001, \mathbf{n} \cdot \mathbf{v})})
+
+（<math>\mathbf{T}_{r}=e^{-\boldsymbol{\sigma}_{t} d}, \quad \text { where } \quad d=\frac{t}{\max (0.001, \mathbf{n} \cdot \mathbf{v})}</math>）
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Volumatric Rendering Equation/半透明表面距离d的计算.png)</div>
 
