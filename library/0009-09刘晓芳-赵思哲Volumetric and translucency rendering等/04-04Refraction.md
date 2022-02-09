@@ -14,6 +14,8 @@
 
 ![](http://latex.codecogs.com/svg.latex?\sin \theta_{i} \cdot n_{1}=\sin \theta_{t} \cdot n_{2})
 
+（<math>\sin \theta_{i} \cdot n_{1}=\sin \theta_{t} \cdot n_{2}</math>）
+
 <div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射示意图.png)</div>
 
 <center>图1 折射示意图 </center>
@@ -24,15 +26,19 @@
 
 ### 1.2Radiance的计算
 
-由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
+由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：（<math>F</math>)、（<math>1-F</math>)、（<math>\theta_{i}</math>)、（<math>\theta_{t}</math>)
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/radiance公式1.svg)</div>
+
+(<math>L_{t}=\left(1-F\left(\theta_{i}\right)\right) \frac{\sin ^{2} \theta_{i}}{\sin ^{2} \theta_{t}} L_{i}</math>)
 
 应用斯涅尔定律，该公式也可写为：
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/基于斯涅尔定律的radiance公式.svg)</div>
 
-其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。
+(<math>L_{t}=\left(1-F\left(\theta_{i}\right)\right) \frac{n_{2}^{2}}{n_{1}^{2}} L_{i}</math>)
+
+其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。(<math>F(\theta_{i})</math>)、(<math>L_{i}</math>)、（<math>n_{1}</math>)、（<math>n_{2}</math>)
 
 ### 1.3折射向量的计算方法
 
@@ -40,11 +46,18 @@ Bec[2]提出了一种有效的方法来计算折射向量：
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射向量计算公式.svg)</div>
 
+（<math>\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l}</math>）
+
 其中
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/折射公式附加说明.svg)</div>
 
-得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。
+（<math>\begin{aligned}
+w &=n(\mathbf{l} \cdot \mathbf{N}) \\
+k &=\sqrt{1+(w-n)(w+n)}
+\end{aligned}</math>）
+
+得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。（<math>n=n_{1}/n_{2}</math>)
 
 ### 1.4实时渲染方法
 

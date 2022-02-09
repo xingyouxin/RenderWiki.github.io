@@ -14,15 +14,21 @@
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Coverage and Blending_noPictures/混合公式.svg)</div>
 
+（<math>\mathbf{c}_{o}=\alpha \mathbf{c}_{s}+(1-\alpha) \mathbf{c}_{b}</math>）
+
 对于半透明表面（通常是指具有高吸收和低散射系数的材质），混合操作为：
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Coverage and Blending_noPictures/半透明表面的混合公式.svg)</div>
 
-其中![](http://latex.codecogs.com/svg.latex?c_{s})包含固体表面的镜面反射，即玻璃或凝胶。![](http://latex.codecogs.com/svg.latex?T_{r})是一个三通道的透射率颜色向量。
+（<math>\mathbf{c}_{o}=\mathbf{c}_{s}+\mathbf{T}_{r} \mathbf{c}_{b}</math>）
+
+其中![](http://latex.codecogs.com/svg.latex?c_{s})包含固体表面的镜面反射，即玻璃或凝胶。![](http://latex.codecogs.com/svg.latex?T_{r})是一个三通道的透射率颜色向量。（<math>c_{s}</math>)、（<math>T_{r}</math>)
 
 一般可以使用通用的混合操作来同时处理上述情况，其使用的混合函数是
 
 <div align=center>![](https://renderwiki.github.io/ImageResources/Coverage and Blending_noPictures/两式混合公式.svg)</div>
+
+（<math>\mathbf{c}_{o}=\alpha\left(\mathbf{c}_{s}+\mathbf{T}_{r} \mathbf{c}_{b}\right)+(1-\alpha) \mathbf{c}_{b}</math>）
 
 参考文献：
 

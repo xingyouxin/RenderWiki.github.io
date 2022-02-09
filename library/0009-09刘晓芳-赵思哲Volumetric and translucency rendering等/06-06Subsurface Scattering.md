@@ -38,7 +38,7 @@ Ma等人[3]根据测量数据，发现模糊程度在可见光谱上有所不同
 
 #### 1.3.3Pre-Integrated Skin Shading
 
-Penner[4]结合了Warp Lighting和Normal Blurring的想法，提出了一种预积分的皮肤着色方法。皮肤表面的着色受两个系数的影响, 一个是![](https://latex.codecogs.com/svg.image?\mathbf{n} \cdot \mathbf{l}) 的值，另一个是皮肤表面的曲率![](https://latex.codecogs.com/svg.image?1 / r=\|\partial n / \partial p\|)。曲率越大，皮肤受散射的影响就越大，如鼻子处散射比面部会更加明显)。这样将这两个系数作为输入值, 对散射和透射进行预积分得到一张二维LUT表。然后再加上前一小节所讲的 Normal Blurring操作。
+Penner[4]结合了Warp Lighting和Normal Blurring的想法，提出了一种预积分的皮肤着色方法。皮肤表面的着色受两个系数的影响, 一个是![](https://latex.codecogs.com/svg.image?\mathbf{n} \cdot \mathbf{l}) 的值，另一个是皮肤表面的曲率![](https://latex.codecogs.com/svg.image?1 / r=\|\partial n / \partial p\|)。曲率越大，皮肤受散射的影响就越大，如鼻子处散射比面部会更加明显)。这样将这两个系数作为输入值, 对散射和透射进行预积分得到一张二维LUT表。然后再加上前一小节所讲的 Normal Blurring操作。（<math>\mathbf{n} \cdot \mathbf{l}</math>)、（<math>1 / r=\|\partial n / \partial p\|</math>)
 
 #### 1.3.4Texture-Space Diffusion
 
@@ -69,11 +69,13 @@ Jimenez[6]提出一种屏幕空间的方法：
 
 对于表现出大规模散射的材质来说，必须考虑光照从背面穿过后的透射效果(比如光照在手上的效果)。为了模拟这种效果，需要测量光在材质中传播的距离。而估算这个距离可以使用深度贴图（Depth Maps）技术，此技术非常类似于阴影贴图(Shadow Mapping)，并且可用于实时渲染。
 
-Barr´e-Brisebois和Bouchard[8]提出了一种廉价的对大范围次表面散射的近似方法。首先，他们为每个网格生成一个灰度纹理以存储平均局部厚度，该厚度为1减去从向内的法线![](https://latex.codecogs.com/svg.image?-n)计算的环境遮挡。这个纹理表示为为![](https://latex.codecogs.com/svg.image?t_{ss})，被认为是一个近似的透射率:
+Barr´e-Brisebois和Bouchard[8]提出了一种廉价的对大范围次表面散射的近似方法。首先，他们为每个网格生成一个灰度纹理以存储平均局部厚度，该厚度为1减去从向内的法线![](https://latex.codecogs.com/svg.image?-n)计算的环境遮挡。这个纹理表示为为![](https://latex.codecogs.com/svg.image?t_{ss})，被认为是一个近似的透射率:（<math>-n</math>)、（<math>t_{ss}</math>)
 
-![img](file:///C:/Users/lxf11/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)
+<div align=center>![](https://renderwiki.github.io/ImageResources/Subsurface Scattering/Depth-Map Techniques公式.png)</div>
 
-其中![](https://latex.codecogs.com/svg.image?\mathrm{l})和![](https://latex.codecogs.com/svg.image?\mathrm{v})分别是归一化的光和视图向量，![](https://latex.codecogs.com/svg.image?\mathrm{p})是一个近似相位函数的指数，![](https://latex.codecogs.com/svg.image?\mathrm{c}_{ss})是次表面反照率。然后将这个表达式与光的颜色、强度和距离衰减相乘。
+（<math>t_{\mathrm{SS}} \mathbf{c}_{\mathrm{ss}}\left((\mathbf{v} \cdot-\mathbf{l})^{+}\right)^{p}</math>）
+
+其中![](https://latex.codecogs.com/svg.image?\mathrm{l})和![](https://latex.codecogs.com/svg.image?\mathrm{v})分别是归一化的光和视图向量，![](https://latex.codecogs.com/svg.image?\mathrm{p})是一个近似相位函数的指数，![](https://latex.codecogs.com/svg.image?\mathrm{c}_{ss})是次表面反照率。然后将这个表达式与光的颜色、强度和距离衰减相乘。（<math>\mathbf{l}</math>)、（<math>\mathbf{v}</math>)、（<math>p</math>)、（<math>\mathrm{c}_{ss}</math>)
 
 这个模型不是基于物理的，也不是能量守恒的，但是它能够一次就迅速渲染出合理的次表面照明效果，如图3。
 

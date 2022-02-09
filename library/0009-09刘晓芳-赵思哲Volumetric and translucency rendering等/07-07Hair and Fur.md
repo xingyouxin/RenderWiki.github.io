@@ -16,8 +16,8 @@
 
 毛发和皮毛的结构基本相同, 由三层组成，如图1所示:
 
-- 外面是角质层（cuticle），表示纤维的表面。这个表面是不光滑的，由重叠的鳞片组成，鳞片相对于头发倾斜约![img](file:///C:/Users/lxf11/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png)，使即法线向根部（root)方向倾斜。
-- 中间是皮质层（cortex），含有黑色素从而使纤维具有颜色。其中有一种真黑素，可以呈现棕色，![](https://latex.codecogs.com/svg.image?\alpha_{a,e}=(0.419,0.697,1.37))；还有一种伪黑色素，可以呈现红色![](https://latex.codecogs.com/svg.image?\alpha_{a,p}=(0.187,0.4,1.05))。
+- 外面是角质层（cuticle），表示纤维的表面。这个表面是不光滑的，由重叠的鳞片组成，鳞片相对于头发倾斜约![](https://latex.codecogs.com/svg.image?\alpha=3^{\circ})，使即法线向根部（root)方向倾斜。（<math>\alpha=3^{\circ}</math>)
+- 中间是皮质层（cortex），含有黑色素从而使纤维具有颜色。其中有一种真黑素，可以呈现棕色，![](https://latex.codecogs.com/svg.image?\alpha_{a,e}=(0.419,0.697,1.37))；还有一种伪黑色素，可以呈现红色![](https://latex.codecogs.com/svg.image?\alpha_{a,p}=(0.187,0.4,1.05))。（<math>\alpha_{a,e}=(0.419,0.697,1.37)</math>)、（<math>\alpha_{a,p}=(0.187,0.4,1.05)</math>)
 - 内部是髓质层（medulla），它很小，在建立人体毛发模型时经常被忽略。但在动物皮毛中，它占据了较大体积，具有更大的意义。
 
 ### 1.3几何表示
