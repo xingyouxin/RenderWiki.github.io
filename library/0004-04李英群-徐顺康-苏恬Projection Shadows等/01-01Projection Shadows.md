@@ -25,6 +25,6 @@ z坐标的推导方式相同，y坐标为零。此时，可以得到投影矩阵
 <center>图1.2 左侧为正确的阴影，而在右侧，出现了antishadow。</center>
 所有遮蔽物必须位于光源和接受平面之间。如图1.2所示，如果光源位于物体的下方，就会生成一个antishadow，因为每个顶点都会通过光源进行投影。如果投射一个位于接收平面下方的物体，也会发生错误。
 
-参考文献：
+参考文献：  
 [1] Blinn, Jim, “Me and My (Fake) Shadow,” IEEE Computer Graphics and Applications, vol. 8, no. 1, pp. 82–86, Jan. 1988. Also collected in [165]. Cited on p. 225, 227  
 [2] Tessman, Thant, “Casting Shadows on Flat Surfaces,” Iris Universe, pp. 16–19, Winter 1989. Cited on p. 225  
