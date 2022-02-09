@@ -11,12 +11,26 @@
 <center>图1.1 左：阴影投射到平面y=0上。右：阴影投射到平面π:n·x+d=0上。</center>
 首先推导x坐标的投影。从图1.1左侧的相似三角形中，可以得到：
 <div align=center>![公式1.1](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.1.png)</div>
+（<math>\frac{p_{x}-l_{x}}{v_{x}-l_{x}}=\frac{l_{y}}{l_{y}-v_{y}} \Longleftrightarrow p_{x}=\frac{l_{y} v_{x}-l_{x} v_{y}}{l_{y}-v_{y}}</math>）
 z坐标的推导方式相同，y坐标为零。此时，可以得到投影矩阵M：
-<div align=center>![公式1.1](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.2.png)</div>
+<div align=center>![公式1.2](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.2.png)</div>
+（<math>\mathbf{M}=\left(\begin{array}{cccc}
+l_{y} & -l_{x} & 0 & 0 \\
+0 & 0 & 0 & 0 \\
+0 & -l_{z} & l_{y} & 0 \\
+0 & -1 & 0 & l_{y}
+\end{array}\right)</math>）
 在一般情况下，我们应该将阴影投射到平面π：n·x+d=0上，如图1.1右侧所示。从l发出的光线穿过v，与平面π相交,产生了点p：
-<div align=center>![公式1.1](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.3.png)</div>
+<div align=center>![公式1.3](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.3.png)</div>
+（<math>\mathbf{p}=\mathbf{l}-\frac{d+\mathbf{n} \cdot \mathbf{l}}{\mathbf{n} \cdot(\mathbf{v}-\mathbf{l})}(\mathbf{v}-\mathbf{l})</math>）
 该方程也可以转换为投影矩阵，如方程1.2所示，满足Mv=p：
-<div align=center>![公式1.1](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.4.png)</div>
+<div align=center>![公式1.4](https://renderwiki.github.io/ImageResources/Projection Shadows/公式1.4.png)</div>
+（<math>\mathbf{M}=\left(\begin{array}{cccc}
+\mathbf{n} \cdot \mathbf{l}+d-l_{x} n_{x} & -l_{x} n_{y} & -l_{x} n_{z} & -l_{x} d \\
+-l_{y} n_{x} & \mathbf{n} \cdot \mathbf{l}+d-l_{y} n_{y} & -l_{y} n_{z} & -l_{y} d \\
+-l_{z} n_{x} & -l_{z} n_{y} & \mathbf{n} \cdot \mathbf{l}+d-l_{z} n_{z} & -l_{z} d \\
+-n_{x} & -n_{y} & -n_{z} & \mathbf{n} \cdot \mathbf{l}
+\end{array}\right)</math>）
 ## 1.3基本算法
 在实际使用时，必须避免在接收投影三角形的曲面下方渲染投影三角形。一种方法是在我们投射的平面上添加一些偏置，这样阴影三角形总是会呈现在表面前面。
 更安全的方法是先绘制地平面，然后在z-buffer关闭的情况下绘制投影三角形，然后再像往常一样渲染其余的几何图形。因为没有进行深度比较，投影三角形总是会绘制在地平面的上方。如果地平面有界限，例如它是一个矩形，投影的阴影可能会落在它的外面。为了解决这个问题，可以使用一个stencil-buffer。首先，将接受平面绘制到屏幕和stencil-buffer。然后，在z-buffer关闭的情况下，只在了绘制了接受平面的区域绘制投影三角形，然后正常渲染场景的其余部分。
