@@ -26,11 +26,7 @@
 
 由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
 
-<!-- $$
-\begin{equation}
-L_{t}=\left(1-F\left(\theta_{i}\right)\right) \frac{\sin ^{2} \theta_{i}}{\sin ^{2} \theta_{t}} L_{i}
-\end{equation}
-$$ -->
+<div align=center>![](https://renderwiki.github.io/ImageResources/Refraction/radiance公式1.svg)</div>
 
 应用斯涅尔定律，该公式也可写为：
 
