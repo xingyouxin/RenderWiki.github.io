@@ -20,7 +20,7 @@ RSM是目前主要的全局光照算法之一，它是Shadow Maps方法的延伸
 ### 1.3 优化
    &emsp;由于不是所有的虚拟点光源都对着色点有贡献，还需要考虑可见性、方向与距离的问题，因此可以通过有侧重地选取一些虚拟点光源进行计算来对RSM加速。   
    &emsp;将着色点投影到shadow map空间中，距离着色点越近的虚拟点光源采样多，但权重小；距离着色点远的虚拟点光源采样少，权重占比大。
-<div align=center>![采样示意图](https://renderwiki.github.io/ImageResources/Reflective Shadow Maps/Figure1.1.png)
+<div align=center>![采样示意图](https://renderwiki.github.io/ImageResources/Reflective Shadow Maps/Figure1.2.png)
 </div><center>图1.2 采样示意图</center> 
 
 ### 1.4 优缺点
