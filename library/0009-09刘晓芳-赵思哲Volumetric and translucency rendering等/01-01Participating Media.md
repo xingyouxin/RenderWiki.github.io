@@ -22,8 +22,8 @@
 
 影响光在参与介质中传播的事件可以总结为以下四种类型。如图所示：
 
-- 吸收（Absorption）：光子被介质中的物质吸收，从而转化为热或其他形式的能量的过程，其是有关吸收系数![](http://latex.codecogs.com/svg.latex?\sigma_{a})的函数。
-- 向外散射（Out-scattering）：光子通过与介质中的颗粒发生反弹从而向其他方向散射出去的过程，其是有关散射系数![](http://latex.codecogs.com/svg.latex?\sigma_{s})来描述。
+- 吸收（Absorption）：光子被介质中的物质吸收，从而转化为热或其他形式的能量的过程，其是有关吸收系数![](http://latex.codecogs.com/svg.latex?\sigma_{a})的函数。（清华公式：<math>\sigma_{a}</math>)
+- 向外散射（Out-scattering）：光子通过与介质中的颗粒发生反弹从而向其他方向散射出去的过程，其是有关散射系数![](http://latex.codecogs.com/svg.latex?\sigma_{s})来描述。（<math>\sigma_{s}</math>)
 - 自发光（Emission）：光从其他形式的能量转化为可见光，如火的黑体辐射。
 - 向内散射（In-scattering）：来自四面八方的光子在与介质中的颗粒发生散射时，可以散射到当前光路中，并对这一光路的最终辐射度做出贡献。
 
@@ -33,13 +33,13 @@
 
 <center>图2 有关散射和参与介质的术语 </center>
 
-吸收和向外散射会导致该光路上的光子减少， 通常可以将其合并为消光系数![](http://latex.codecogs.com/svg.latex?\sigma_{t}=\sigma_{a}+\sigma_{s})。
+吸收和向外散射会导致该光路上的光子减少， 通常可以将其合并为消光系数![](http://latex.codecogs.com/svg.latex?\sigma_{t}=\sigma_{a}+\sigma_{s})。（<math>\sigma_{t}=\sigma_{a}+\sigma_{s}</math>)
 
-散射系数和吸收系数决定了介质的反照率ρ，定义为![](http://latex.codecogs.com/svg.latex?\rho=\frac{\sigma_{s}}{\sigma_{s}+\sigma_{a}}=\frac{\sigma_{s}}{\sigma_{t}})
+散射系数和吸收系数决定了介质的反照率ρ，定义为![](http://latex.codecogs.com/svg.latex?\rho=\frac{\sigma_{s}}{\sigma_{s}+\sigma_{a}}=\frac{\sigma_{s}}{\sigma_{t}})（<math>\rho=\frac{\sigma_{s}}{\sigma_{s}+\sigma_{a}}=\frac{\sigma_{s}}{\sigma_{t}}</math>)
 
-![](http://latex.codecogs.com/svg.latex?\rho)代表了介质中散射相对于吸收在每个可见光谱范围内的重要性，也就是介质的整体反射率，其值在[0, 1]范围内。越接近0表示更多的光被吸收，从而导致介质浑浊，如黑暗的废气烟雾。反之越接近1表示大部分光线被散射，导致介质较亮，如空气、云或地球的大气层。
+![](http://latex.codecogs.com/svg.latex?\rho)代表了介质中散射相对于吸收在每个可见光谱范围内的重要性，也就是介质的整体反射率，其值在[0, 1]范围内。越接近0表示更多的光被吸收，从而导致介质浑浊，如黑暗的废气烟雾。反之越接近1表示大部分光线被散射，导致介质较亮，如空气、云或地球的大气层。（<math>\rho</math>)
 
-现实世界中的参与介质的系数已经被测量和公布[2]。例如牛奶具有很高的散射系数且反照率![](http://latex.codecogs.com/svg.latex?\rho>0.999)，产生浑浊和呈现出不透明的白色。而红酒具有极高的吸收率，几乎没有散射，从而呈现出半透明和彩色的外观。
+现实世界中的参与介质的系数已经被测量和公布[2]。例如牛奶具有很高的散射系数且反照率![](http://latex.codecogs.com/svg.latex?\rho>0.999)，产生浑浊和呈现出不透明的白色。而红酒具有极高的吸收率，几乎没有散射，从而呈现出半透明和彩色的外观。（<math>\rho>0.999</math>)
 
 这些参数和之前光在介质中的相互作用实际上都与光的波长有关。即在一个特定的参与介质中，不同频率的光会以不同的概率被吸收或散射。所以理论上应该在渲染时使用光谱值，但在实时渲染中（除了少数例外[3]），我们使用RGB值来提高渲染效率。
 

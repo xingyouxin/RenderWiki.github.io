@@ -80,9 +80,6 @@ Barr´e-Brisebois和Bouchard[8]提出了一种廉价的对大范围次表面散�
 <div align=center>![](https://renderwiki.github.io/ImageResources/Subsurface Scattering/图3.png)</div>
 
 <center>图3 左图是为Hebe雕像生成的局部厚度纹理。中间是用它实现的次表面光散射效果。右图是另一个使用相同技术渲染的半透明立方体的场景。(图片由Colin Barr´e-Brisebois和Marc Bouchard提供[8]）/center>
-
-#### 
-
 参考文献：
 
 [1] Tomas Akenine-Mller, Eric Haines, and Naty Hoffman. 2018. Real-Time Rendering, Fourth Edition (4th. ed.). A. K. Peters, Ltd., USA.
