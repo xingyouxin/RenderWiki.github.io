@@ -57,6 +57,8 @@ PBR材质的参数**与物理量相关**，对于艺术家来说并不友好。�
 
 
 
+
+
 参考文献：
 
 Games202 实时高质量着色2（表面模型：Disney principled BRDF；方法：LTC；杂项：NPR）

@@ -25,6 +25,8 @@
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>L=k_dImax(0, \pmb{n·l}) \tag{1}</math>

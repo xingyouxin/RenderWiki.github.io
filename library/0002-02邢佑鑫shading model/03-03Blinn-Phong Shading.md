@@ -41,6 +41,8 @@ Phong（Phong，1975）提出了一种非常简单且广泛使用的镜面高光
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>\pmb{h}=\frac{(\pmb{v+l})}{||\pmb{v+l}||}  \tag{1}</math>

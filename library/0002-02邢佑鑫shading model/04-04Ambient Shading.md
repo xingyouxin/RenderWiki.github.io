@@ -16,9 +16,13 @@
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>L=k_aI_a+k_dImax(0, \pmb{n·l})+k_sImax(0, \pmb{n·h})^n  \tag{1}</math>
+
+
 
 参考文献：
 

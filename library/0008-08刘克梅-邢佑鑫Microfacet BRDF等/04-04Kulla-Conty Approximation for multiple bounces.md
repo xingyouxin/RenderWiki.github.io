@@ -65,6 +65,8 @@ Kulla-Conty近似是一种经验方法，旨在**补全多次反射损失的能�
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>E(μ_o) = \int^{2\pi}_0\int^{1}_0f(μ_0, μ_i, \phi)μ_idμ_id\phi.\tag{1}</math>

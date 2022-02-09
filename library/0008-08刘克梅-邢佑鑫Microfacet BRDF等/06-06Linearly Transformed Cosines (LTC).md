@@ -40,6 +40,8 @@ LTC的**主要特点**有：
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>L(w_o)=L_i·\int_PF(w_i)dw_i. \tag{1}</math>

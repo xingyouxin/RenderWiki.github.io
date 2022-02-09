@@ -34,6 +34,8 @@
 
 
 
+
+
 ac.wiki所需的公式：
 
 <math>k_w=\frac{1+\pmb{n·l}}{2}. \tag{1}</math>
