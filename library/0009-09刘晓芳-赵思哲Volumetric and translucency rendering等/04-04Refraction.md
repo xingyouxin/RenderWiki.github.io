@@ -26,27 +26,31 @@
 
 由于能量守恒，任何没有被反射的光都是透射的。假设反射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?F)，透射光量与入射光量的比例是![](http://latex.codecogs.com/svg.latex?1-F)。在给定入射角度![](http://latex.codecogs.com/svg.latex?\theta_{i})下，出射角度为![](http://latex.codecogs.com/svg.latex?\theta_{t})的辐射度可以通过以下公式进行计算：
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{sin_{\theta_{i}}^{2}}{sin_{\theta_{t}}^{2}}L_{i})
-
+$$
+L_{t}=\left(1-F\left(\theta_{i}\right)\right) \frac{\sin ^{2} \theta_{i}}{\sin ^{2} \theta_{t}} L_{i}
+$$
 应用斯涅尔定律，该公式也可写为：
 
-![](https://latex.codecogs.com/svg.image?L_{t}=(1-F(\theta_{i})\frac{n_{2}^{2}}{n_{1}^{2}}L_{i})
-
+$$
+L_{t}=\left(1-F\left(\theta_{i}\right)\right) \frac{n_{2}^{2}}{n_{1}^{2}} L_{i}
+$$
 其中![](https://latex.codecogs.com/svg.image?F(\theta_{i}))为入射角度![](https://latex.codecogs.com/svg.image?\theta_{i})下的菲涅尔系数，![](https://latex.codecogs.com/svg.image?L_{i})为入射辐射度，![](https://latex.codecogs.com/svg.image?n_{1})和![](https://latex.codecogs.com/svg.image?n_{2})分别为入射时光所处介质的折射率与出射时光所处介质的折射率。
 
 ### 1.3折射向量的计算方法
 
 Bec[2]提出了一种有效的方法来计算折射向量：
 
-![](https://latex.codecogs.com/svg.image?\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l})
-
+$$
+\mathbf{t}=(w-k) \mathbf{N}-n \mathbf{l}
+$$
 其中
 
-![](https://latex.codecogs.com/svg.image?\begin{aligned}
+$$
+\begin{aligned}
 w &=n(\mathbf{l} \cdot \mathbf{N}) \\
 k &=\sqrt{1+(w-n)(w+n)}
-\end{aligned})
-
+\end{aligned}
+$$
 得到的折射向量![](https://latex.codecogs.com/svg.image?\mathbf{t})被归一化，![](https://latex.codecogs.com/svg.image?\mathbf{N})为表面法线，![](https://latex.codecogs.com/svg.image?\mathbf{l})为光的入射方向。![](https://latex.codecogs.com/svg.image?n=n_{1}/n_{2})为相对折射率，也是传统上用于斯涅尔方程中的折射率。水的折射率大约为1.33，玻璃的折射率通常为1.5，而空气的折射率为1.0。
 
 ### 1.4实时渲染方法
