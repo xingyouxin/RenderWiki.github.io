@@ -13,7 +13,7 @@ SVGF算法的主要流程如图1.1所示。首先对于从路径追踪渲染器�
 
 <div align=center>![SVGF流程图](https://renderwiki.github.io/ImageResources/SVGF/SVGF流程图.png)</div>
 
-<center>图1.1 SVGF流程图</center>
+<center>图2 SVGF流程图</center>
 
 SVGF的核心之一在于时空混合滤波，它包含一个空间的A-Trous小波滤波和一个时域滤波。接下来分别对两种滤波进行解释：
 
@@ -27,7 +27,7 @@ SVGF使用时域累积的方法，对每像素颜色流明的方差进行估计�
 
 <div align=center>![公式1](https://renderwiki.github.io/ImageResources/SVGF/公式1.png)</div>
 
-该公式用于时域上的颜色积累，其中，i为第i帧，![](http://latex.codecogs.com/svg.latex?h=\left(\frac{1}{16}, \frac{1}{4}, \frac{3}{8}, \frac{1}{4}, \frac{1}{16}\right))是5×5的联合双边滤波核，![](http://latex.codecogs.com/svg.latex?w(p, q))是像素![](http://latex.codecogs.com/svg.latex?p)和![](http://latex.codecogs.com/svg.latex?q)之间的的权重函数。根据这一公式，将小波滤波应用到每一次的时间累积颜色上。假设方差样本是不相关的，方差估计由以下公式进行滤波：
+该公式用于时域上的颜色积累，其中，i为第i帧，![](http://latex.codecogs.com/svg.latex?h=(\frac{1}{16},\frac{1}{4},\frac{3}{8},\frac{1}{4},\frac{1}{16}))是5×5的联合双边滤波核，![](http://latex.codecogs.com/svg.latex?w(p, q))是像素![](http://latex.codecogs.com/svg.latex?p)和![](http://latex.codecogs.com/svg.latex?q)之间的的权重函数。根据这一公式，将小波滤波应用到每一次的时间累积颜色上。假设方差样本是不相关的，方差估计由以下公式进行滤波：
 
 <div align=center>![公式2](https://renderwiki.github.io/ImageResources/SVGF/公式2.png)</div>
 
@@ -60,11 +60,17 @@ SVGF使用时域累积的方法，对每像素颜色流明的方差进行估计�
 
 <div align=center>![是否使用高斯核](https://renderwiki.github.io/ImageResources/SVGF/是否使用高斯核.png)</div>
 
+<center>图3 1spp噪声输入（左）、SVGF输出（中）和2048spp收敛图（右）对比</center>
+
+
 ### 2.2时间滤波
 
 <div align=center>![公式7](https://renderwiki.github.io/ImageResources/SVGF/公式7.png)</div>
 
-![](http://latex.codecogs.com/svg.latex?-)为根据上述公式混合的结果，![](http://latex.codecogs.com/svg.latex?\sim)代表应用滤波，![](http://latex.codecogs.com/svg.latex?warped)为重投影（利用运动矢量进行时间重用，具体为扭曲上一帧使之当前帧对齐），上述公式可以看成是当前帧的滤波结果和重投影后的上一帧的混合结果的线性组合，![](http://latex.codecogs.com/svg.latex?\alpha)为混合标量权重，SVGF将其设置为定值0.2。注意，SVGF使用的是传统的基于屏幕空间的运动矢量。为了减小拖尾，使用一个2×2的tap双线性滤波器去重新采样![](http://latex.codecogs.com/svg.latex?\bar{C}_{\mathrm{i}-1}^{\text {warped }})，如果一个tap中含有不一致的几何形状，样本将被丢弃，其权重将在一致的tap上均匀地重新分配。如果没有tap保持一致，则使用一个更大的3×3滤波器来帮助寻找的细碎的几何形状。如果仍然无法找到一致的几何形状，则该样本处于运动遮挡处，因此丢弃时间历史，令<div>![公式8](https://renderwiki.github.io/ImageResources/SVGF/公式8.png)</div>。
+![](http://latex.codecogs.com/svg.latex?-)为根据上述公式混合的结果，![](http://latex.codecogs.com/svg.latex?\sim)代表应用滤波，![](http://latex.codecogs.com/svg.latex?warped)为重投影（利用运动矢量进行时间重用，具体为扭曲上一帧使之当前帧对齐），上述公式可以看成是当前帧的滤波结果和重投影后的上一帧的混合结果的线性组合，![](http://latex.codecogs.com/svg.latex?\alpha)为混合标量权重，SVGF将其设置为定值0.2。注意，SVGF使用的是传统的基于屏幕空间的运动矢量。为了减小拖尾，使用一个2×2的tap双线性滤波器去重新采样![](http://latex.codecogs.com/svg.latex?\bar{C}_{\mathrm{i}-1}^{\text {warped }})，如果一个tap中含有不一致的几何形状，样本将被丢弃，其权重将在一致的tap上均匀地重新分配。如果没有tap保持一致，则使用一个更大的3×3滤波器来帮助寻找的细碎的几何形状。如果仍然无法找到一致的几何形状，则该样本处于运动遮挡处，因此丢弃时间历史，令：
+
+<div align=center>![公式8](https://renderwiki.github.io/ImageResources/SVGF/公式8.png)</div>。
+
 
 
 参考文献：
