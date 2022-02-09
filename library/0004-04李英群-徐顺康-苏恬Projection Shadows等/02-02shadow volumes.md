@@ -19,13 +19,13 @@
  
  由于上述原因，阴影体积算法被大多数应用程序放弃。然而，随着技术的不断发展，以及研究人员的不断探究，该算法有一天可能会被重新广泛使用。
 # 参考文献：
-[1] Sintorn, Erik, Viktor K¨ ampe, Ola Olsson, and Ulf Assarsson, “Per-Triangle Shadow Volumes Using a View-Sample Cluster Hierarchy,” in Proceedings of the 18th Meeting of the ACM SIGGRAPH Symposium on Interactive 3D Graphics and Games, ACM, pp. 111–118, Mar. 2014. Cited on p. 233, 259
-Heidmann, Tim, “Real Shadows, Real Time,” Iris Universe, no. 18, pp. 23–31, Nov. 1991. Cited on p. 230, 231
-[2] Crow, Franklin C., “Shadow Algorithms for Computer Graphics,” Computer Graphics (SIGGRAPH ’77 Proceedings), vol. 11, no. 2, pp. 242–248, July 1977. Cited on p. 230
-[3] Seiler, L. D. Carmean, E. Sprangle, T. Forsyth, M. Abrash, P. Dubey, S. Junkins, A. Lake, J. Sugerman, R. Cavin, R. Espasa, E. Grochowski, T. Juan, and P. Hanrahan, “Larrabee: A Many-Core x86 Architecture for Visual Computing,” ACM Transactions on Graphics, vol. 27, no. 3, pp. 18:1–18:15, 2008. Cited on p. 230, 996, 1017
-[4] Rottger, Stefan, Alexander Irion, and Thomas Ertl, “Shadow Volumes Revisited,” Journal of WSCG (10th International Conference in Central Europe on Computer Graphics, Visualization and Computer Vision), vol. 10, no. 1–3, pp. 373–379, Feb. 2002. Cited on p. 232
-[5] Everitt, Cass, and Mark Kilgard, “Practical and Robust Stenciled Shadow Volumes for Hardware-Accelerated Rendering,” NVIDIA White Paper, Mar. 2002. Cited on p. 232
-[6] Hornus, Samuel, Jared Hoberock, Sylvain Lefebvre, and John Hart, “ZP+: Correct Z-Pass Stencil Shadows,” in Proceedings of the 2005 Symposium on Interactive 3D Graphics and Games, ACM, pp. 195–202, Apr. 2005. Cited on p. 232
-[7] Stich, Martin, Carsten Wachter, and Alexander Keller, “Efficient and Robust Shadow Volumes Using Hierarchical Occlusion Culling and Geometry Shaders,” in Hubert Nguyen, ed., GPU Gems 3, Addison-Wesley, pp. 239–256, 2007. Cited on p. 233
-[8] Lloyd, Brandon, Jeremy Wendt, Naga Govindaraju, and Dinesh Manocha, “CC Shadow Volumes,” in Proceedings of the 15th Eurographics Workshop on Rendering Techniques, Eurographics Association, pp. 197–206, June 2004. Cited on p. 233
-[9] Sintorn, Erik, Viktor Kampe, Ola Olsson, and Ulf Assarsson, “Per-Triangle Shadow Volumes Using a View-Sample Cluster Hierarchy,” in Proceedings of the 18th Meeting of the ACM SIGGRAPH Symposium on Interactive 3D Graphics and Games, ACM, pp. 111–118, Mar. 2014. Cited on p. 233, 259
+[1] Sintorn, Erik, Viktor K¨ ampe, Ola Olsson, and Ulf Assarsson, “Per-Triangle Shadow Volumes Using a View-Sample Cluster Hierarchy,” in Proceedings of the 18th Meeting of the ACM SIGGRAPH Symposium on Interactive 3D Graphics and Games, ACM, pp. 111–118, Mar. 2014. Cited on p. 233, 259  
+[2] Heidmann, Tim, “Real Shadows, Real Time,” Iris Universe, no. 18, pp. 23–31, Nov. 1991. Cited on p. 230, 231  
+[3] Crow, Franklin C., “Shadow Algorithms for Computer Graphics,” Computer Graphics (SIGGRAPH ’77 Proceedings), vol. 11, no. 2, pp. 242–248, July 1977. Cited on p. 230  
+[4] Seiler, L. D. Carmean, E. Sprangle, T. Forsyth, M. Abrash, P. Dubey, S. Junkins, A. Lake, J. Sugerman, R. Cavin, R. Espasa, E. Grochowski, T. Juan, and P. Hanrahan, “Larrabee: A Many-Core x86 Architecture for Visual Computing,” ACM Transactions on Graphics, vol. 27, no. 3, pp. 18:1–18:15, 2008. Cited on p. 230, 996, 1017  
+[5] Rottger, Stefan, Alexander Irion, and Thomas Ertl, “Shadow Volumes Revisited,” Journal of WSCG (10th International Conference in Central Europe on Computer Graphics, Visualization and Computer Vision), vol. 10, no. 1–3, pp. 373–379, Feb. 2002. Cited on p. 232  
+[6] Everitt, Cass, and Mark Kilgard, “Practical and Robust Stenciled Shadow Volumes for Hardware-Accelerated Rendering,” NVIDIA White Paper, Mar. 2002. Cited on p. 232  
+[7] Hornus, Samuel, Jared Hoberock, Sylvain Lefebvre, and John Hart, “ZP+: Correct Z-Pass Stencil Shadows,” in Proceedings of the 2005 Symposium on Interactive 3D Graphics and Games, ACM, pp. 195–202, Apr. 2005. Cited on p. 232  
+[8] Stich, Martin, Carsten Wachter, and Alexander Keller, “Efficient and Robust Shadow Volumes Using Hierarchical Occlusion Culling and Geometry Shaders,” in Hubert Nguyen, ed., GPU Gems 3, Addison-Wesley, pp. 239–256, 2007. Cited on p. 233  
+[9] Lloyd, Brandon, Jeremy Wendt, Naga Govindaraju, and Dinesh Manocha, “CC Shadow Volumes,” in Proceedings of the 15th Eurographics Workshop on Rendering Techniques, Eurographics Association, pp. 197–206, June 2004. Cited on p. 233  
+[10] Sintorn, Erik, Viktor Kampe, Ola Olsson, and Ulf Assarsson, “Per-Triangle Shadow Volumes Using a View-Sample Cluster Hierarchy,” in Proceedings of the 18th Meeting of the ACM SIGGRAPH Symposium on Interactive 3D Graphics and Games, ACM, pp. 111–118, Mar. 2014. Cited on p. 233, 259  
