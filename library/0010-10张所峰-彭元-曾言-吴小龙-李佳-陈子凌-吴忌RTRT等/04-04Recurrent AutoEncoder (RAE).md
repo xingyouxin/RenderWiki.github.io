@@ -23,6 +23,13 @@ RAE使用的损失函数包含一个空间的L1损失、一个梯度域的L1损�
 
 <div align=center>![损失函数](https://renderwiki.github.io/ImageResources/RAE/损失函数.png)</div>
 
+<math>\begin{array}{c}
+\mathcal{L}=w_{\mathrm{s}} \mathcal{L}_{\mathrm{s}}+w_{\mathrm{g}} \mathcal{L}_{\mathrm{g}}+w_{\mathrm{t}} \mathcal{L}_{\mathrm{t}} \\
+\mathcal{L}_{\mathrm{s}}=\frac{1}{N} \sum_{i}^{N}\left|P_{i}-T_{i}\right| \\
+\mathcal{L}_{\mathrm{g}}=\frac{1}{N} \sum_{i}^{N}\left|\nabla P_{i}-\nabla T_{i}\right| \\
+\mathcal{L}_{\mathrm{t}}=\frac{1}{N} \sum_{i}^{N}\left(\left|\frac{\partial P_{i}}{\partial t}-\frac{\partial T_{i}}{\partial t}\right|\right)
+\end{array}</math>
+
 其中，![](http://latex.codecogs.com/svg.latex?P_{i})和![](http://latex.codecogs.com/svg.latex?T_{i})分别代表第![](http://latex.codecogs.com/svg.latex?i)帧的预测值和目标值，![](http://latex.codecogs.com/svg.latex?\nabla)为使用HFEN计算的梯度,![](http://latex.codecogs.com/svg.latex?w)为每个损失对应的权重，RAE中分别设置为![](http://latex.codecogs.com/svg.latex?w_{\mathrm{s} / \mathrm{g} / \mathrm{t}}=0.8 / 0.1 / 0.1)。
 空间损失用来单帧去噪，梯度域损失用来维持边缘细节，而时间损失用来维持时间稳定性。
 
