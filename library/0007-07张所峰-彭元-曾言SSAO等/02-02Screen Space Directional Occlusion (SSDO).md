@@ -17,6 +17,10 @@ SSDO将直接光照和间接光照按照下列公式所示分别计算：
 
 <div align=center>![公式1](https://renderwiki.github.io/ImageResources/SSDO/公式1.png)</div>
 
+<math>L_o^{dir}(p,w_o)=\int_{\Omega^+,V=1}L_o^{dir}(p,w_i)fr(p,w_i,w_o)cos\theta_i {\rm d} w_i</math>
+
+<math>L_o^{indir}(p,w_o)=\int_{\Omega^+,V=0}L_o^{indir}(p,w_i)fr(p,w_i,w_o)cos\theta_i {\rm d} w_i</math>
+
 
 对于某个从![](http://latex.codecogs.com/svg.latex?\omega_{o})方向上看的shading point，往半球![](http://latex.codecogs.com/svg.latex?\\Omega^{+})各个方向随机发射一条光线，如果发射的光线方向![](http://latex.codecogs.com/svg.latex?\omega_{i})不被阻挡，即可见性![](http://latex.codecogs.com/svg.latex?V=1)，就按照直接光照来计算，否则，可见性![](http://latex.codecogs.com/svg.latex?V=0)，按照间接光照来计算。![](http://latex.codecogs.com/svg.latex?L_{i}^{\mathrm{dir}})(![](http://latex.codecogs.com/svg.latex?\mathrm{p},\omega_{i}))能够从点光源或环境光贴图高效地计算。Diffuse的![](http://latex.codecogs.com/svg.latex?f_{r})（BRDF函数）为ρ/π。
 
@@ -47,10 +51,14 @@ SSDO与SSAO对于直接光照和间接光照来源的计算方法刚好相反，
 
 <div align=center>![公式2](https://renderwiki.github.io/ImageResources/SSDO/公式2.png)</div>
 
+<math>L^{\mathrm{dir}}(\mathbf{P})=\sum_{i=1}^N \frac{\rho}{\pi}L_{in}(w_i)V(w_i)cos\theta_i \Delta w</math>
+
 ### 2.2间接光照
 对于间接光照的计算，每个被分类为遮挡物的采样点（A、B、D）作为间接光照的发送者，P点作为接收者。发送者放置了一个小patch在表面上，在第一个pass中，直接光照被存储在帧缓存（frame buffer）里，对应的像素颜色为向P点发送的辐射亮度radiance。在这里注意到每个patch都有法线，这是为了防止背向面造成不应该存在的漏光现象而设置的。P点处接收其周围的patch传来的间接光照计算公式如下：
 
-<div align=center>![公式3](https://renderwiki.github.io/ImageResources/SSDO/公式1.png)</div>
+<div align=center>![公式3](https://renderwiki.github.io/ImageResources/SSDO/公式3.png)</div>
+
+<math>L_{\mathrm{ind}}(\mathbf{P})=\sum_{i=1}^{N} \frac{\rho}{\pi} L_{\mathrm{pixel}}\left(1-V\left(\omega_{i}\right)\right) \frac{A_{s} \cos \theta_{s_{i}} \cos \theta_{\mathrm{r}_{i}}}{d_{i}^{2}}</math>
 
 ![](http://latex.codecogs.com/svg.latex?d_{i})是![](http://latex.codecogs.com/svg.latex?P)和遮挡物![](http://latex.codecogs.com/svg.latex?i)的距离（被clamp到1），![](http://latex.codecogs.com/svg.latex?\theta_{s_{i}})和![](http://latex.codecogs.com/svg.latex?\theta_{\mathrm{r}_{i}})是发送者/接收者的法线和传输方向的夹角。![](http://latex.codecogs.com/svg.latex?A_{s})是发送者patch的面积，![](http://latex.codecogs.com/svg.latex?A_{s}=\pi r_{\max }^{2} / N)（N为圆被分的区域个数），实际值可以根据处于半球的坡度来手动调节，以控制色溢的程度。A点由于法向朝向相对于![](http://latex.codecogs.com/svg.latex?P)处于背向，所以不贡献间接光照；C点（映射到物体表面后）处于半球外，也不参与贡献；此时B和D作为发送者向![](http://latex.codecogs.com/svg.latex?P)点贡献间接光照。
 
