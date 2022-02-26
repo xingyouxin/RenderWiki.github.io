@@ -32,7 +32,7 @@
 
 其中光学深度![](http://latex.codecogs.com/svg.latex?\tau)是无单位的，表示光的衰减量。消光系数或穿过的距离越大，光学深度就越大，能够通过介质的光就越少。一个光学深度（![](http://latex.codecogs.com/svg.latex?\tau=1))将去除大约60%的光。（<math>\tau</math>)、（<math>\tau=1</math>)
 
-当厚度发生变化时，上式可以简化为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}})，其中![](http://latex.codecogs.com/svg.latex?d)是通过材质体的距离，物理消光参数![](http://latex.codecogs.com/svg.latex?\sigma_{t})表示光通过介质时的衰减速度。例如，在RGB中![](http://latex.codecogs.com/svg.latex?\sigma_{t}=(0.5,1,2))，那么通过深度![](http://latex.codecogs.com/svg.latex?d=1m)的光将为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))。（<math>T_{r}=e^{-d \sigma_{t}}</math>)、（<math>d</math>)、（<math>\sigma_{t}</math>)、（<math>\sigma_{t}=(0.5,1,2)</math>)、（<math>d=1m</math>)、（T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))
+当厚度发生变化时，上式可以简化为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}})，其中![](http://latex.codecogs.com/svg.latex?d)是通过材质体的距离，物理消光参数![](http://latex.codecogs.com/svg.latex?\sigma_{t})表示光通过介质时的衰减速度。例如，在RGB中![](http://latex.codecogs.com/svg.latex?\sigma_{t}=(0.5,1,2))，那么通过深度![](http://latex.codecogs.com/svg.latex?d=1m)的光将为![](http://latex.codecogs.com/svg.latex?T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14))。（<math>T_{r}=e^{-d \sigma_{t}}</math>)、（<math>d</math>)、（<math>\sigma_{t}</math>)、（<math>\sigma_{t}=(0.5,1,2)</math>)、（<math>d=1m</math>)、（<math>T_{r}=e^{-d \sigma_{t}} \approx(0.61,0.37,0.14)</math>)
 
 为了让艺术家直观地进行创作，Bavoil[2]将目标颜色![](http://latex.codecogs.com/svg.latex?t_{c})设定为某个给定距离![](http://latex.codecogs.com/svg.latex?d)的透光率量，那么消光系数![](http://latex.codecogs.com/svg.latex?\sigma_{t})可以恢复为（<math>t_{c}</math>)、（<math>d</math>)、（<math>\sigma_{t}</math>)
 
@@ -75,3 +75,4 @@
 [2] Bavoil, Louis, Steven P. Callahan, Aaron Lefohn, Jo˜ao L. D. Comba, and Cl´audio T. Silva, “Multi-Fragment Effects on the GPU Using the k-Buffer,” in Proceedings of the 2007 Symposium on Interactive 3D Graphics and Games, ACM, pp. 97–104, Apr.–May 2007.
 
 [3] Drobot, Micha l, “Practical Multilayered Materials in Call of Duty Infinite Warfare,” SIGGRAPHPhysically Based Shading in Theory and Practice course, Aug. 2017. 
+
